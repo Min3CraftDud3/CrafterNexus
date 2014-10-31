@@ -16,23 +16,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import static net.coasterman10.Annihilation.Translation._;
-import net.coasterman10.Annihilation.Annihilation;
+package org.eodsteven.CrafterNexus.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import static org.eodsteven.CrafterNexus.Translation._;
 
 public class TeamCommand implements CommandExecutor {
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
 
-    public TeamCommand(Annihilation plugin) {
+    public TeamCommand(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (args.length == 0)
