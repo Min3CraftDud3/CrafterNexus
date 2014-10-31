@@ -16,21 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.chat;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.PlayerMeta;
+package org.eodsteven.CrafterNexus.chat;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class ChatListener implements Listener {
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
 
-    public ChatListener(Annihilation plugin) {
+    public ChatListener(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
@@ -43,7 +42,7 @@ public class ChatListener implements Listener {
         boolean dead = !meta.isAlive() && plugin.getPhase() > 0;
         String msg = e.getMessage();
 
-        if (e.getMessage().startsWith("!") && !e.getMessage().equalsIgnoreCase("!")) {
+        if (e.getMessage().startsWith("@") && !e.getMessage().equalsIgnoreCase("@")) {
             isAll = true;
             msg = msg.substring(1);
         }
