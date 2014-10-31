@@ -16,12 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import static net.coasterman10.Annihilation.Translation._;
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.maps.MapLoader;
-import net.coasterman10.Annihilation.maps.VoidGenerator;
+package org.eodsteven.CrafterNexus.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,28 +27,33 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import static org.eodsteven.CrafterNexus.Translation._;
+import org.eodsteven.CrafterNexus.maps.MapLoader;
+import org.eodsteven.CrafterNexus.maps.VoidGenerator;
 
 public class MapCommand implements CommandExecutor {
     private MapLoader loader;
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
-    public MapCommand(Annihilation plugin, MapLoader loader) {
+    public MapCommand(CrafterNexus plugin, MapLoader loader) {
         this.plugin = plugin;
         this.loader = loader;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         String cyan = ChatColor.DARK_AQUA.toString();
         String gray = ChatColor.GRAY.toString();
         String red = ChatColor.RED.toString();
         final String green = ChatColor.GREEN.toString();
-        String prefix = cyan + "[Annihilation] " + gray;
+        String prefix = cyan + "[CrafterNexus] " + gray;
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("edit")) {
-                    if (p.hasPermission("annihilation.map.edit")) {
+                    if (p.hasPermission("crafternexus.map.edit")) {
                         loader.loadMap(args[1]);
                         WorldCreator wc = new WorldCreator(args[1]);
                         wc.generator(new VoidGenerator());
@@ -71,7 +71,7 @@ public class MapCommand implements CommandExecutor {
                     return true;
                 }
                 if (args[0].equalsIgnoreCase("save")) {
-                    if (p.hasPermission("annihilation.map.save")) {
+                    if (p.hasPermission("crafternexus.map.save")) {
                         if (Bukkit.getWorld(args[1]) != null) {
                             Bukkit.getWorld(args[1]).save();
                             final CommandSender s = sender;
