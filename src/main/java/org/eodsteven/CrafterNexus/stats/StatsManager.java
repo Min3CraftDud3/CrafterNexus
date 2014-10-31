@@ -16,22 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.stats;
+package org.eodsteven.CrafterNexus.stats;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.manager.ConfigManager;
-
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.manager.ConfigManager;
 
 public class StatsManager {
-    private Annihilation plugin;
+    private CrafterNexus plugin;
     private ConfigManager config;
     public static final int UNDEF_STAT = -42;
 
-    public StatsManager(Annihilation instance, ConfigManager config) {
+    public StatsManager(CrafterNexus instance, ConfigManager config) {
         this.plugin = instance;
         this.config = config;
     }
