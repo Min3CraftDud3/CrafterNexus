@@ -16,13 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.api;
-
-import net.coasterman10.Annihilation.object.GameTeam;
+package org.eodsteven.CrafterNexus.api;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class NexusDamageEvent extends Event {
 
@@ -38,6 +37,7 @@ public class NexusDamageEvent extends Event {
     
     private static final HandlerList handlers = new HandlerList();
 
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
