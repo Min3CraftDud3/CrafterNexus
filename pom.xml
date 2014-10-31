@@ -1,11 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.coasterman10.Annihilation</groupId>
-    <artifactId>Annihilation</artifactId>
-    <version>1.5</version>
+    <groupId>org.eodsteven.CrafterNexus</groupId>
+    <artifactId>CrafterNexus</artifactId>
+    <version>1.7.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -30,18 +32,13 @@
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>RELEASE</version>
+            <version>1.7.10-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>RELEASE</version>
+            <version>1.4.1</version>
         </dependency>
         <dependency>
             <groupId>net.gravitydevelopment.updater</groupId>
@@ -52,6 +49,16 @@
             <groupId>org.mcstats.bukkit</groupId>
             <artifactId>metrics</artifactId>
             <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mcstats.bukkit</groupId>
+            <artifactId>metrics-lite</artifactId>
+            <version>R6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.7.10-R0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -67,29 +74,6 @@
                 </includes>
             </resource>
         </resources>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                	<execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                        	<artifactSet>
-                                <excludes>
-                                	<exclude>org.bukkit</exclude>
-                                	<exclude>net.milkbowl.vault</exclude>
-                                </excludes>
-                        	</artifactSet>
-                    	</configuration>
-                	</execution>
-                </executions>
-          </plugin>
-        </plugins>
     </build>
+    <name>CrafterNexus</name>
 </project>
