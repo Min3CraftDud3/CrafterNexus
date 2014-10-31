@@ -16,20 +16,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.object;
+package org.eodsteven.CrafterNexus.object;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class Boss {
+public final class Golem {
     private String configName;
     private int health;
     private String bossName;
@@ -42,28 +41,44 @@ public class Boss {
     private int lootItems;
     private int ingots;
 
-    public Boss(String configName, int health, String bossName, Location spawn,
+    public Golem(String configName, int health, String bossName, Location spawn,
             Location chest) {
         this.configName = configName;
         this.health = health;
         this.bossName = bossName;
         this.spawn = spawn;
         this.chest = chest;
+        this.loot.put(new ItemStack(Material.IRON_INGOT,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_BOOTS,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_CHESTPLATE,1),(float) 1);
+        this.loot.put(new ItemStack(Material.COOKED_CHICKEN,1),(float) 1);
+        this.loot.put(new ItemStack(Material.COOKED_BEEF,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_SWORD,1),(float) 1);
+        this.loot.put(new ItemStack(Material.GOLD_NUGGET,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_HELMET,1),(float) 1);
+        this.loot.put(new ItemStack(Material.TNT,1),(float) 1);
+        this.loot.put(new ItemStack(Material.TORCH,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_LEGGINGS,1),(float) 1);
+        this.loot.put(new ItemStack(Material.DIAMOND,1),(float) 1);
+        this.loot.put(new ItemStack(Material.GOLD_INGOT,1),(float) 1);
+        this.loot.put(new ItemStack(Material.IRON_PICKAXE,1),(float) 1);
+        this.loot.put(new ItemStack(Material.COAL,5),(float) 1);
+        this.lootItems = loot.size();
         this.setAlive(false);
     }
 
-    public void spawnLootChest() {
+    public void LootChest() {
         chest.getBlock().setType(Material.CHEST);
         Chest c = (Chest) chest.getBlock().getState();
         Inventory inv = c.getBlockInventory();
         Random r = new Random();
-        inv.setItem(r.nextInt(inv.getSize()), getRandomItem(legendaries));
+        inv.setItem(r.nextInt(inv.getSize()), SpawnRandomItem(legendaries));
         if (lootItems > inv.getSize() - 2)
             lootItems = inv.getSize() - 2;
         for (int i = 0; i < lootItems; i++) {
             int slot = r.nextInt(inv.getSize());
             if (isEmpty(inv, slot))
-                inv.setItem(slot, getRandomItem(loot));
+                inv.setItem(slot, SpawnRandomItem(loot));
             else
                 i--;
         }
@@ -127,7 +142,7 @@ public class Boss {
         this.alive = alive;
     }
 
-    private static ItemStack getRandomItem(HashMap<ItemStack, Float> weighting) {
+    private static ItemStack SpawnRandomItem(HashMap<ItemStack, Float> weighting) {
         List<ItemStack> items = new ArrayList<ItemStack>(weighting.keySet());
 
         float totalWeight = 0F;
