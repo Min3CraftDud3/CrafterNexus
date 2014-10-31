@@ -16,13 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.object;
+package org.eodsteven.CrafterNexus.object;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.coasterman10.Annihilation.listeners.SoulboundListener;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -36,6 +33,7 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
+import org.eodsteven.CrafterNexus.listeners.SoulboundListener;
 
 public enum Kit {
     CIVILIAN(Material.WORKBENCH) {
@@ -298,7 +296,7 @@ public enum Kit {
     public boolean isOwnedBy(Player p) {
         return p.isOp()
                 || this == CIVILIAN
-                || p.hasPermission("annihilation.class."
+                || p.hasPermission("crafternexus.class."
                         + getName().toLowerCase());
     }
 
