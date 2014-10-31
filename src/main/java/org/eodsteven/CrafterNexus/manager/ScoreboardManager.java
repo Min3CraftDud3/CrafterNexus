@@ -16,12 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.HashMap;
-
-import net.coasterman10.Annihilation.object.GameTeam;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -29,6 +26,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class ScoreboardManager {
     public Scoreboard sb;
