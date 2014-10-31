@@ -16,23 +16,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.api;
-
-import net.coasterman10.Annihilation.object.Boss;
+package org.eodsteven.CrafterNexus.api;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.eodsteven.CrafterNexus.object.Golem;
 
-public class BossSpawnEvent extends Event {
+public class GolemSpawnEvent extends Event {
 
-    private Boss b;
+    private Golem b;
     
-    public BossSpawnEvent(Boss b) {
+    public GolemSpawnEvent(Golem b) {
         this.b = b;
     }
     
     private static final HandlerList handlers = new HandlerList();
 
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
@@ -41,7 +41,7 @@ public class BossSpawnEvent extends Event {
         return handlers;
     }
 
-    public Boss getBoss() {
+    public Golem getBoss() {
         return b;
     }
 }
