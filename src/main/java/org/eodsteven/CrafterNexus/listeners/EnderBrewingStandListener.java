@@ -16,17 +16,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
-
+import net.minecraft.server.v1_7_R4.EntityHuman;
+import net.minecraft.server.v1_7_R4.EntityPlayer;
+import net.minecraft.server.v1_7_R4.TileEntityBrewingStand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R1.inventory.CraftInventoryBrewer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftInventoryBrewer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,23 +37,20 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-import net.minecraft.server.v1_7_R1.EntityHuman;
-import net.minecraft.server.v1_7_R1.EntityPlayer;
-import net.minecraft.server.v1_7_R1.TileEntityBrewingStand;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class EnderBrewingStandListener implements Listener {
     private HashMap<GameTeam, Location> locations;
     private HashMap<String, VirtualBrewingStand> brewingStands;
 
-    public EnderBrewingStandListener(Annihilation plugin) {
+    public EnderBrewingStandListener(CrafterNexus plugin) {
         locations = new HashMap<GameTeam, Location>();
         brewingStands = new HashMap<String, VirtualBrewingStand>();
         
         Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+            @Override
             public void run() {
                 for (VirtualBrewingStand b : brewingStands.values())
                     b.h();
@@ -117,8 +116,8 @@ public class EnderBrewingStandListener implements Listener {
         }
 
         @Override
-        public net.minecraft.server.v1_7_R1.Block q() {
-            return net.minecraft.server.v1_7_R1.Blocks.BREWING_STAND;
+        public net.minecraft.server.v1_7_R4.Block q() {
+            return net.minecraft.server.v1_7_R4.Blocks.BREWING_STAND;
         }
 
         @Override
@@ -129,6 +128,7 @@ public class EnderBrewingStandListener implements Listener {
         @Override
         public InventoryHolder getOwner() {
             return new InventoryHolder() {
+                @Override
                 public Inventory getInventory() {
                     return new CraftInventoryBrewer(VirtualBrewingStand.this);
                 }
