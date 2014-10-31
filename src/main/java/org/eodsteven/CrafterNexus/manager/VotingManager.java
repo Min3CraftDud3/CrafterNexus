@@ -16,23 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.HashMap;
-
-import net.coasterman10.Annihilation.Annihilation;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 public class VotingManager {
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
     private final HashMap<Integer, String> maps = new HashMap<Integer, String>();
     private final HashMap<String, String> votes = new HashMap<String, String>();
     private boolean running = false;
 
-    public VotingManager(Annihilation plugin) {
+    public VotingManager(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
