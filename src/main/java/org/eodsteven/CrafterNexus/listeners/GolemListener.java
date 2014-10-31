@@ -16,13 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.chat.ChatUtil;
-import net.coasterman10.Annihilation.object.Boss;
-import net.coasterman10.Annihilation.object.PlayerMeta;
+package org.eodsteven.CrafterNexus.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.IronGolem;
@@ -33,12 +27,17 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.chat.ChatUtil;
+import org.eodsteven.CrafterNexus.object.Golem;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
-public class BossListener implements Listener {
+public class GolemListener implements Listener {
 
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
-    public BossListener(Annihilation instance) {
+    public GolemListener(CrafterNexus instance) {
         this.plugin = instance;
     }
 
@@ -49,7 +48,7 @@ public class BossListener implements Listener {
             if (g.getCustomName() == null)
                 return;
 
-            final Boss b = plugin.getBossManager().bossNames.get(g
+            final Golem b = plugin.getBossManager().bossNames.get(g
                     .getCustomName());
             if (b == null)
                 return;
@@ -58,8 +57,9 @@ public class BossListener implements Listener {
                 event.getEntity().remove();
 
                 Bukkit.getScheduler().runTask(plugin, new Runnable() {
+                    @Override
                     public void run() {
-                        Boss n = plugin.getBossManager().newBoss(b);
+                        Golem n = plugin.getBossManager().newBoss(b);
                         plugin.getBossManager().spawn(n);
                     }
                 });
@@ -78,13 +78,14 @@ public class BossListener implements Listener {
             if (g.getCustomName() == null)
                 return;
 
-            final Boss b = plugin.getBossManager().bossNames.get(g
+            final Golem b = plugin.getBossManager().bossNames.get(g
                     .getCustomName());
             if (b == null)
                 return;
 
 
             Bukkit.getScheduler().runTask(plugin, new Runnable() {
+                @Override
                 public void run() {
                     plugin.getBossManager().update(b, g);
                 }
@@ -99,13 +100,13 @@ public class BossListener implements Listener {
             if (g.getCustomName() == null)
                 return;
 
-            Boss b = plugin.getBossManager().bossNames.get(g.getCustomName());
+            Golem b = plugin.getBossManager().bossNames.get(g.getCustomName());
             if (b == null)
                 return;
 
             event.getDrops().clear();
 
-            b.spawnLootChest();
+            b.LootChest();
 
             if (g.getKiller() != null) {
                 Player killer = g.getKiller();
@@ -119,10 +120,11 @@ public class BossListener implements Listener {
         }
     }
 
-    private void respawn(final Boss b) {
+    private void respawn(final Golem b) {
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
-                Boss n = plugin.getBossManager().newBoss(b);
+                Golem n = plugin.getBossManager().newBoss(b);
                 ChatUtil.bossRespawn(b);
                 plugin.getBossManager().spawn(n);
             }
