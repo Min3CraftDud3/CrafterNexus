@@ -108,7 +108,7 @@ public final class CrafterNexus extends JavaPlugin {
     private DatabaseManager db;
     private GolemManager boss;
 
-    public static HashMap<String, String> messages = new HashMap<String, String>();
+    public static HashMap<String, String> messages = new HashMap<>();
 
     public boolean useMysql = false;
     public boolean updateAvailable = false;
@@ -120,7 +120,7 @@ public final class CrafterNexus extends JavaPlugin {
     public int respawn = 10;
 
     public boolean runCommand = false;
-    public List<String> commands = new ArrayList<String>();
+    public List<String> commands = new ArrayList<>();
 
     public String mysqlName = "annihilation";
 
@@ -316,7 +316,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (section.contains("bosses")) {
-            HashMap<String, Golem> bosses = new HashMap<String, Golem>();
+            HashMap<String, Golem> bosses = new HashMap<>();
             ConfigurationSection sec = section
                     .getConfigurationSection("bosses");
             for (String boss : sec.getKeys(false))
@@ -330,7 +330,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (section.contains("diamonds")) {
-            Set<Location> diamonds = new HashSet<Location>();
+            Set<Location> diamonds = new HashSet<>();
             for (String s : section.getStringList("diamonds"))
                 diamonds.add(Util.parseLocation(w, s));
             resources.loadDiamonds(diamonds);
@@ -378,6 +378,7 @@ public final class CrafterNexus extends JavaPlugin {
         sb.update();
 
         getServer().getScheduler().runTaskTimer(this, new Runnable() {
+            @Override
             public void run() {
                 for (Player p : getServer().getOnlinePlayers()) {
                     if (PlayerMeta.getMeta(p).getKit() == Kit.SCOUT) {
@@ -388,6 +389,7 @@ public final class CrafterNexus extends JavaPlugin {
         }, 0L, 1200L);
 
         getServer().getScheduler().runTaskTimer(this, new Runnable() {
+            @Override
             public void run() {
                 for (GameTeam t : GameTeam.values()) {
                     if (t != GameTeam.NONE && t.getNexus().isAlive()) {
@@ -636,7 +638,7 @@ public final class CrafterNexus extends JavaPlugin {
 
     public void joinTeam(Player player, String team) {
         PlayerMeta meta = PlayerMeta.getMeta(player);
-        if (meta.getTeam() != GameTeam.NONE && !player.hasPermission("annihilation.bypass.teamlimitor")) {
+        if (meta.getTeam() != GameTeam.NONE && !player.hasPermission("crafternexus.bypass.teamlimitor")) {
             player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.DARK_AQUA + _("ERROR_PLAYER_NOSWITCHTEAM"));
             return;
         }
@@ -651,7 +653,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (Util.isTeamTooBig(target)
-                && !player.hasPermission("annihilation.bypass.teamlimit")) {
+                && !player.hasPermission("crafternexus.bypass.teamlimit")) {
             player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_TEAMFULL"));
             return;
         }
@@ -664,7 +666,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (getPhase() > lastJoinPhase
-                && !player.hasPermission("annhilation.bypass.phaselimiter")) {
+                && !player.hasPermission("crafternexus.bypass.phaselimiter")) {
             player.kickPlayer(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED
                     + "You cannot join the game in this phase!");
             return;
