@@ -16,15 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.object.GameTeam;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -32,13 +27,16 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.ConfigurationSection;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class SignManager {
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
     private HashMap<GameTeam, ArrayList<Location>> signs = new HashMap<GameTeam, ArrayList<Location>>();
 
-    public SignManager(Annihilation instance) {
+    public SignManager(CrafterNexus instance) {
         this.plugin = instance;
     }
 
