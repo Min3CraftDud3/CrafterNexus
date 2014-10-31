@@ -16,141 +16,141 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.bar;
+package org.eodsteven.CrafterNexus.bar;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import org.bukkit.Location;
 
 public class FakeDragon {
     public static final int MAX_HEALTH = 200;
-    private int x;
-    private int y;
-    private int z;
+	private int x;
+	private int y;
+	private int z;
 
-    private int pitch = 0;
-    private int yaw = 0;
-    private byte xvel = 0;
-    private byte yvel = 0;
-    private byte zvel = 0;
-    public float health = 0;
-    private boolean visible = false;
-    public String name;
-    private Object world;
+	private int pitch = 0;
+	private int yaw = 0;
+	private byte xvel = 0;
+	private byte yvel = 0;
+	private byte zvel = 0;
+	public float health = 0;
+	private boolean visible = false;
+	public String name;
+	private Object world;
 
     private Object dragon;
     private int id;
 
-    public FakeDragon(String name, Location loc, int percent) {
-        this.name = name;
-        this.x = loc.getBlockX();
-        this.y = loc.getBlockY();
-        this.z = loc.getBlockZ();
+	public FakeDragon(String name, Location loc, int percent) {
+		this.name = name;
+		this.x = loc.getBlockX();
+		this.y = loc.getBlockY();
+		this.z = loc.getBlockZ();
         this.health = percent / 100F * MAX_HEALTH;
         this.world = Util.getHandle(loc.getWorld());
-    }
+	}
 
-    public FakeDragon(String name, Location loc) {
-        this.name = name;
-        this.x = loc.getBlockX();
-        this.y = loc.getBlockY();
-        this.z = loc.getBlockZ();
+	public FakeDragon(String name, Location loc) {
+		this.name = name;
+		this.x = loc.getBlockX();
+		this.y = loc.getBlockY();
+		this.z = loc.getBlockZ();
         this.world = Util.getHandle(loc.getWorld());
-    }
+	}
 
     public int getMaxHealth() {
         return MAX_HEALTH;
-    }
+	}
 
-    public void setHealth(int percent) {
+	public void setHealth(int percent) {
         this.health = percent / 100F * MAX_HEALTH;
-    }
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getX() {
-        return x;
-    }
+	public int getX() {
+		return x;
+	}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    public int getY() {
-        return y;
-    }
+	public int getY() {
+		return y;
+	}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    public int getZ() {
-        return z;
-    }
+	public int getZ() {
+		return z;
+	}
 
-    public void setZ(int z) {
-        this.z = z;
-    }
+	public void setZ(int z) {
+		this.z = z;
+	}
 
-    public int getPitch() {
-        return pitch;
-    }
+	public int getPitch() {
+		return pitch;
+	}
 
-    public void setPitch(int pitch) {
-        this.pitch = pitch;
-    }
+	public void setPitch(int pitch) {
+		this.pitch = pitch;
+	}
 
-    public int getYaw() {
-        return yaw;
-    }
+	public int getYaw() {
+		return yaw;
+	}
 
-    public void setYaw(int yaw) {
-        this.yaw = yaw;
-    }
+	public void setYaw(int yaw) {
+		this.yaw = yaw;
+	}
 
-    public byte getXvel() {
-        return xvel;
-    }
+	public byte getXvel() {
+		return xvel;
+	}
 
-    public void setXvel(byte xvel) {
-        this.xvel = xvel;
-    }
+	public void setXvel(byte xvel) {
+		this.xvel = xvel;
+	}
 
-    public byte getYvel() {
-        return yvel;
-    }
+	public byte getYvel() {
+		return yvel;
+	}
 
-    public void setYvel(byte yvel) {
-        this.yvel = yvel;
-    }
+	public void setYvel(byte yvel) {
+		this.yvel = yvel;
+	}
 
-    public byte getZvel() {
-        return zvel;
-    }
+	public byte getZvel() {
+		return zvel;
+	}
 
-    public void setZvel(byte zvel) {
-        this.zvel = zvel;
-    }
+	public void setZvel(byte zvel) {
+		this.zvel = zvel;
+	}
 
-    public boolean isVisible() {
-        return visible;
-    }
+	public boolean isVisible() {
+		return visible;
+	}
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 
-    public Object getWorld() {
-        return world;
-    }
+	public Object getWorld() {
+		return world;
+	}
 
-    public void setWorld(Object world) {
-        this.world = world;
-    }
-
+	public void setWorld(Object world) {
+		this.world = world;
+	}
+	
     public Object getSpawnPacket() {
         Class<?> Entity = Util.getCraftClass("Entity");
         Class<?> EntityLiving = Util.getCraftClass("EntityLiving");
@@ -196,9 +196,9 @@ public class FakeDragon {
 
             packet = PacketPlayOutSpawnEntityLiving.getConstructor(
                     new Class<?>[] { EntityLiving }).newInstance(dragon);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
-        }
+	}
 
         return packet;
     }
@@ -213,7 +213,7 @@ public class FakeDragon {
             Field a = PacketPlayOutEntityDestroy.getDeclaredField("a");
             a.setAccessible(true);
             a.set(packet, new int[] { id });
-        } catch (Exception e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchFieldException | SecurityException | IllegalArgumentException e) {
             e.printStackTrace();
         }
 
@@ -231,33 +231,25 @@ public class FakeDragon {
             packet = PacketPlayOutEntityMetadata.getConstructor(
                     new Class<?>[] { int.class, DataWatcher, boolean.class })
                     .newInstance(id, watcher, true);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
-        }
+}
 
         return packet;
     }
 
-    public Object getTeleportPacket(Location loc) {
-        Class<?> PacketPlayOutEntityTeleport = Util
-                .getCraftClass("PacketPlayOutEntityTeleport");
+    
+            public Object getTeleportPacket(Location loc) {
+		Class<?> PacketPlayOutEntityTeleport = Util.getCraftClass("PacketPlayOutEntityTeleport");
+		Object packet = null;
+                    try {
+                    packet = PacketPlayOutEntityTeleport.getConstructor(Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE, Byte.TYPE, Byte.TYPE, Boolean.TYPE, Boolean.TYPE).newInstance(id, loc.getBlockX() * 32, loc.getBlockY() * 32, loc.getBlockZ() * 32, (byte)((int)loc.getYaw() * 256 / 360), (byte)((int)loc.getPitch() * 256 / 360), true, true);
+		} catch (IllegalArgumentException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			e.printStackTrace();
+		}
 
-        Object packet = null;
-
-        try {
-            packet = PacketPlayOutEntityTeleport.getConstructor(
-                    new Class<?>[] { int.class, int.class, int.class,
-                            int.class, byte.class, byte.class }).newInstance(
-                    this.id, loc.getBlockX() * 32, loc.getBlockY() * 32,
-                    loc.getBlockZ() * 32,
-                    (byte) ((int) loc.getYaw() * 256 / 360),
-                    (byte) ((int) loc.getPitch() * 256 / 360));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return packet;
-    }
+		return packet;
+	}
 
     public Object getWatcher() {
         Class<?> Entity = Util.getCraftClass("Entity");
@@ -276,7 +268,7 @@ public class FakeDragon {
             a.invoke(watcher, 8, (Byte) (byte) 0);
             a.invoke(watcher, 10, name);
             a.invoke(watcher, 11, (Byte) (byte) 1);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return watcher;
