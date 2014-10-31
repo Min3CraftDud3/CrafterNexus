@@ -16,14 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.object;
+package org.eodsteven.CrafterNexus.object;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.coasterman10.Annihilation.Annihilation;
-
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -38,6 +35,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 public class Shop implements Listener {
     private static class ShopItem {
@@ -98,7 +96,7 @@ public class Shop implements Listener {
     private String name;
     private ArrayList<ShopItem> items;
 
-    public Shop(Annihilation plugin, String name, Configuration config) {
+    public Shop(CrafterNexus plugin, String name, Configuration config) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.name = name;
         loadConfig(config);
