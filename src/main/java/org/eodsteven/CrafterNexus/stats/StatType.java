@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.stats;
+package org.eodsteven.CrafterNexus.stats;
 
 public enum StatType {
     KILLS, DEATHS, WINS, LOSSES, NEXUS_DAMAGE;
