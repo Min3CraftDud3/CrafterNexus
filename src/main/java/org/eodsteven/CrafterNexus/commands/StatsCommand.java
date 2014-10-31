@@ -16,24 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import static net.coasterman10.Annihilation.Translation._;
+package org.eodsteven.CrafterNexus.commands;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import net.coasterman10.Annihilation.stats.StatType;
-import net.coasterman10.Annihilation.stats.StatsManager;
-
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import static org.eodsteven.CrafterNexus.Translation._;
+import org.eodsteven.CrafterNexus.stats.StatType;
+import org.eodsteven.CrafterNexus.stats.StatsManager;
 
 public class StatsCommand implements CommandExecutor {
     private StatsManager manager;
@@ -42,6 +39,7 @@ public class StatsCommand implements CommandExecutor {
         this.manager = manager;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (sender instanceof Player) {
@@ -66,7 +64,7 @@ public class StatsCommand implements CommandExecutor {
                 listStats((Player) sender);
             }
         } else {
-            sender.sendMessage(ChatColor.RED + _("ERROR_CONSOLE_PLAYERCOMMAND"));
+            sender.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_CONSOLE_PLAYERCOMMAND"));
         }
 
         return true;
