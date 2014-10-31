@@ -1,17 +1,28 @@
 # Permissions are hooked into Bukkit's Permission.yml as follows:
-#server.basics:
-#       description: Basic permissions for CrafterNexus.
-#       default: true
-#       children:
-#          crafternexus.class.warrior: true
-#          crafternexus.class.archer: true
-#          crafternexus.class.miner: true
-#          crafternexus.class.lumberjack: true
-#          crafternexus.class.scout: true
-#          crafternexus.class.berserker: true
-#          crafternexus.class.operative: true
-#
-# When /crafternexus start is run, the delay before starting phase 1 in seconds
+################################################################
+# Player Class Permissions #####################################
+################################################################
+#  server.basics:
+#         description: Basic permissions for CrafterNexus.
+#         default: true
+#         children:
+#            crafternexus.class.warrior: true
+#            crafternexus.class.archer: true
+#            crafternexus.class.miner: true
+#            crafternexus.class.lumberjack: true
+#            crafternexus.class.scout: true
+#            crafternexus.class.berserker: true
+#            crafternexus.class.operative: true
+################################################################
+#  Admin class Permissions #####################
+################################################################
+#            crafternexus.bypass.teamlimitor: true
+#            crafternexus.bypass.teamlimit: true
+#            crafternexus.bypass.phaselimiter: true
+#            crafternexus.map.edit: true
+#            crafternexus.map.save: true
+################################################################
+# When /[crafternexus] or [cn] start is run, the delay before starting phase 1 in seconds
 start-delay: 120
 
 # Phase length in seconds (Phase 5 is perpetual)
