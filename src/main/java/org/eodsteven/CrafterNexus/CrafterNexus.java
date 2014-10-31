@@ -636,7 +636,7 @@ public final class CrafterNexus extends JavaPlugin {
 
     public void joinTeam(Player player, String team) {
         PlayerMeta meta = PlayerMeta.getMeta(player);
-        if (meta.getTeam() != GameTeam.NONE && !player.hasPermission("annihilation.bypass.teamlimitor")) {
+        if (meta.getTeam() != GameTeam.NONE && !player.hasPermission("crafternexus.bypass.teamlimitor")) {
             player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.DARK_AQUA + _("ERROR_PLAYER_NOSWITCHTEAM"));
             return;
         }
@@ -651,7 +651,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (Util.isTeamTooBig(target)
-                && !player.hasPermission("annihilation.bypass.teamlimit")) {
+                && !player.hasPermission("crafternexus.bypass.teamlimit")) {
             player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_TEAMFULL"));
             return;
         }
@@ -664,7 +664,7 @@ public final class CrafterNexus extends JavaPlugin {
         }
 
         if (getPhase() > lastJoinPhase
-                && !player.hasPermission("annhilation.bypass.phaselimiter")) {
+                && !player.hasPermission("crafternexus.bypass.phaselimiter")) {
             player.kickPlayer(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED
                     + "You cannot join the game in this phase!");
             return;
