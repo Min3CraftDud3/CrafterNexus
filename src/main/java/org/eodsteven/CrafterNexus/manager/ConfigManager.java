@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,11 +24,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.TreeMap;
-
-import net.coasterman10.Annihilation.Annihilation;
-
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 public class ConfigManager {
     private static class Configuration {
@@ -53,12 +51,12 @@ public class ConfigManager {
         }
     }
 
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
     private final File configFolder;
     private final TreeMap<String, Configuration> configs = new TreeMap<String, Configuration>(
             String.CASE_INSENSITIVE_ORDER);
 
-    public ConfigManager(Annihilation plugin) {
+    public ConfigManager(CrafterNexus plugin) {
         this.plugin = plugin;
         configFolder = plugin.getDataFolder();
         if (!configFolder.exists()) {
