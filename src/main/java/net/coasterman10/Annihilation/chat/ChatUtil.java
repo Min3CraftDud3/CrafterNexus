@@ -16,17 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.chat;
-
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.VaultHooks;
-import net.coasterman10.Annihilation.object.Boss;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.PlayerMeta;
+package org.eodsteven.CrafterNexus.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.VaultHooks;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.Golem;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class ChatUtil {
     private static final String DARK_AQUA = ChatColor.DARK_AQUA.toString();
@@ -123,7 +122,7 @@ public class ChatUtil {
             break;
         case 2:
             broadcast(GRAY + "Each nexus is no longer invincible");
-            broadcast(GRAY + "Boss Iron Golems will now spawn");
+            broadcast(GRAY + "Boss Iron Golems will now spawn, Kill them for the Loot");
             break;
         case 3:
             broadcast(GRAY + "Diamonds will now spawn in the middle");
@@ -140,11 +139,11 @@ public class ChatUtil {
         broadcast(GRAY + "================[ " + winner.color().toString()
                 + "End Game" + GRAY + " ]================");
         broadcast(GRAY + "Team " + winner.coloredName() + GRAY
-                + " Wins Annihilation! Restarting game...");
+                + " Wins Crafter's Nexus! Restarting game...");
         broadcast(GRAY + "==========================================");
     }
 
-    public static void bossDeath(Boss b, Player killer, GameTeam team) {
+    public static void bossDeath(Golem b, Player killer, GameTeam team) {
         broadcast(GRAY + "==========[ " + DARK_AQUA + "Boss Killed" + GRAY
                 + " ]==========");
         broadcast(GRAY + b.getBossName() + GRAY + " was killed by "
@@ -152,7 +151,7 @@ public class ChatUtil {
         broadcast(GRAY + "================================");
     }
 
-    public static void bossRespawn(Boss b) {
+    public static void bossRespawn(Golem b) {
         broadcast(GRAY + "================[ " + DARK_AQUA + "Boss" + GRAY
                 + " ]================");
         broadcast(GRAY + b.getBossName() + GRAY
@@ -220,5 +219,8 @@ public class ChatUtil {
         default:
             return String.valueOf(number);
         }
+    }
+
+    private ChatUtil() {
     }
 }
