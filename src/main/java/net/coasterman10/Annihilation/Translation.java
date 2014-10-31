@@ -16,13 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation;
+package org.eodsteven.CrafterNexus;
 
 import org.bukkit.ChatColor;
 
 //Inspired from Essentials
 public class Translation {
     public static String _ (String id) {
-        return ChatColor.stripColor(Annihilation.messages.get(id));
+        return ChatColor.stripColor(CrafterNexus.messages.get(id));
+    }
+
+    private Translation() {
     }
 }
