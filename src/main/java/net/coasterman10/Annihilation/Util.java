@@ -16,22 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation;
+package org.eodsteven.CrafterNexus;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
-
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.Kit;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -43,6 +38,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.Kit;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class Util {
     /**
@@ -224,7 +222,7 @@ public class Util {
         return null;
     }
 
-    public static void sendPlayerToGame(final Player player, Annihilation plugin) {
+    public static void sendPlayerToGame(final Player player, CrafterNexus plugin) {
         final PlayerMeta meta = PlayerMeta.getMeta(player);
         if (meta.getTeam() != null) {
             meta.setAlive(true);
@@ -234,7 +232,7 @@ public class Util {
                 public void run() {
                     meta.getKit().give(player, meta.getTeam());
                     player.setCompassTarget(meta.getTeam().getNexus().getLocation());
-                    player.setGameMode(GameMode.ADVENTURE);
+                    player.setGameMode(GameMode.SURVIVAL);
                     player.setHealth(player.getMaxHealth());
                     player.setFoodLevel(20);
                     player.setSaturation(20F);
@@ -371,5 +369,8 @@ public class Util {
             if (players >= gt.getPlayers().size() + 3 && gt.getNexus().isAlive())
                 return true;
         return false;
+    }
+
+    private Util() {
     }
 }
