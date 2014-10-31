@@ -57,7 +57,7 @@ test:
   - "-1,62,1"
   
   # Boss Configuration.
-  # Optional.
+  # Optional. To turn off Loot Chest, just put "" after chest.
   bosses:
     boss1:
       name: "&bCelariel"
@@ -73,20 +73,20 @@ test:
 # The spawn location for the lobby world.
 # Mandatory.
 lobby:
-  spawn: "0,64,0"
+  spawn: "0,32,0"
   
   # Team join sign locations.
   # Optional, but highly recommended.
   signs:
     red:
-    - "-4,65,-3"
+    - "-2,23,-2"
     - "-3,65,-4"
     yellow:
-    - "-4,65,3"
+    - "2,23,-2"
     - "-3,65,4"
     green:
-    - "4,65,3"
+    - "2,23,2"
     - "3,65,4"
     blue:
-    - "4,65,-3"
+    - "-2,23,2"
     - "3,65,-4"
