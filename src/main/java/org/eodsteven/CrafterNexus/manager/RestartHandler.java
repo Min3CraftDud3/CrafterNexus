@@ -16,15 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.Iterator;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.bar.BarUtil;
-import net.coasterman10.Annihilation.object.GameTeam;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -32,15 +26,19 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class RestartHandler {
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
     private long time;
     private long delay;
     private int taskID;
     private int fwID;
 
-    public RestartHandler(Annihilation plugin, final long delay) {
+    public RestartHandler(CrafterNexus plugin, final long delay) {
         this.plugin = plugin;
         this.delay = delay;
     }
