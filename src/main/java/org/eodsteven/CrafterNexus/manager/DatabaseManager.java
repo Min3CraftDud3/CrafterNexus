@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,10 +26,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import net.coasterman10.Annihilation.Annihilation;
-
 import org.bukkit.Bukkit;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 public class DatabaseManager {
     private static final Logger logger = Bukkit.getLogger();
@@ -37,16 +35,16 @@ public class DatabaseManager {
     
     private String driver;
     private String connectionString;
-    private Annihilation plugin;
+    private CrafterNexus plugin;
     public Connection c = null; 
   
-    public DatabaseManager(String hostname, int port, String database, String username, String password, Annihilation plugin) { 
+    public DatabaseManager(String hostname, int port, String database, String username, String password, CrafterNexus plugin) { 
         driver="com.mysql.jdbc.Driver";
         connectionString="jdbc:mysql://" + hostname + ":" + port + "/" + database+ "?user=" + username + "&password=" + password;
         this.plugin = plugin;
     } 
     
-    public DatabaseManager(Annihilation plugin) { 
+    public DatabaseManager(CrafterNexus plugin) { 
         this.plugin = plugin;
     }
     
