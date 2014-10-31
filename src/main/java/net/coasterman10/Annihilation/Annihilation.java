@@ -16,9 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation;
-
-import static net.coasterman10.Annihilation.Translation._;
+package org.eodsteven.CrafterNexus;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,57 +26,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
-
-import net.coasterman10.Annihilation.api.GameStartEvent;
-import net.coasterman10.Annihilation.api.PhaseChangeEvent;
-import net.coasterman10.Annihilation.bar.BarUtil;
-import net.coasterman10.Annihilation.chat.ChatListener;
-import net.coasterman10.Annihilation.chat.ChatUtil;
-import net.coasterman10.Annihilation.commands.AnnihilationCommand;
-import net.coasterman10.Annihilation.commands.ClassCommand;
-import net.coasterman10.Annihilation.commands.DistanceCommand;
-import net.coasterman10.Annihilation.commands.MapCommand;
-import net.coasterman10.Annihilation.commands.StatsCommand;
-import net.coasterman10.Annihilation.commands.TeamCommand;
-import net.coasterman10.Annihilation.commands.TeamShortcutCommand;
-import net.coasterman10.Annihilation.commands.VoteCommand;
-import net.coasterman10.Annihilation.listeners.BossListener;
-import net.coasterman10.Annihilation.listeners.ClassAbilityListener;
-import net.coasterman10.Annihilation.listeners.CraftingListener;
-import net.coasterman10.Annihilation.listeners.EnderBrewingStandListener;
-import net.coasterman10.Annihilation.listeners.EnderChestListener;
-import net.coasterman10.Annihilation.listeners.EnderFurnaceListener;
-import net.coasterman10.Annihilation.listeners.PlayerListener;
-import net.coasterman10.Annihilation.listeners.ResourceListener;
-import net.coasterman10.Annihilation.listeners.SoulboundListener;
-import net.coasterman10.Annihilation.listeners.WandListener;
-import net.coasterman10.Annihilation.listeners.WorldListener;
-import net.coasterman10.Annihilation.manager.BossManager;
-import net.coasterman10.Annihilation.manager.ConfigManager;
-import net.coasterman10.Annihilation.manager.DatabaseManager;
-import net.coasterman10.Annihilation.manager.MapManager;
-import net.coasterman10.Annihilation.manager.PhaseManager;
-import net.coasterman10.Annihilation.manager.RestartHandler;
-import net.coasterman10.Annihilation.manager.ScoreboardManager;
-import net.coasterman10.Annihilation.manager.SignManager;
-import net.coasterman10.Annihilation.manager.VotingManager;
-import net.coasterman10.Annihilation.maps.MapLoader;
-import net.coasterman10.Annihilation.object.Boss;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.Kit;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-import net.coasterman10.Annihilation.object.Shop;
-import net.coasterman10.Annihilation.stats.StatType;
-import net.coasterman10.Annihilation.stats.StatsManager;
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
-
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
@@ -93,9 +49,51 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Team;
+import static org.eodsteven.CrafterNexus.Translation._;
+import org.eodsteven.CrafterNexus.api.GameStartEvent;
+import org.eodsteven.CrafterNexus.api.PhaseChangeEvent;
+import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.chat.ChatListener;
+import org.eodsteven.CrafterNexus.chat.ChatUtil;
+import org.eodsteven.CrafterNexus.commands.ClassCommand;
+import org.eodsteven.CrafterNexus.commands.CrafterNexusCommand;
+import org.eodsteven.CrafterNexus.commands.DistanceCommand;
+import org.eodsteven.CrafterNexus.commands.MapCommand;
+import org.eodsteven.CrafterNexus.commands.StatsCommand;
+import org.eodsteven.CrafterNexus.commands.TeamCommand;
+import org.eodsteven.CrafterNexus.commands.TeamShortcutCommand;
+import org.eodsteven.CrafterNexus.commands.VoteCommand;
+import org.eodsteven.CrafterNexus.listeners.ClassAbilityListener;
+import org.eodsteven.CrafterNexus.listeners.CraftingListener;
+import org.eodsteven.CrafterNexus.listeners.EnderBrewingStandListener;
+import org.eodsteven.CrafterNexus.listeners.EnderChestListener;
+import org.eodsteven.CrafterNexus.listeners.EnderFurnaceListener;
+import org.eodsteven.CrafterNexus.listeners.GolemListener;
+import org.eodsteven.CrafterNexus.listeners.PlayerListener;
+import org.eodsteven.CrafterNexus.listeners.ResourceListener;
+import org.eodsteven.CrafterNexus.listeners.SoulboundListener;
+import org.eodsteven.CrafterNexus.listeners.WandListener;
+import org.eodsteven.CrafterNexus.listeners.WorldListener;
+import org.eodsteven.CrafterNexus.manager.ConfigManager;
+import org.eodsteven.CrafterNexus.manager.DatabaseManager;
+import org.eodsteven.CrafterNexus.manager.GolemManager;
+import org.eodsteven.CrafterNexus.manager.MapManager;
+import org.eodsteven.CrafterNexus.manager.PhaseManager;
+import org.eodsteven.CrafterNexus.manager.RestartHandler;
+import org.eodsteven.CrafterNexus.manager.ScoreboardManager;
+import org.eodsteven.CrafterNexus.manager.SignManager;
+import org.eodsteven.CrafterNexus.manager.VotingManager;
+import org.eodsteven.CrafterNexus.maps.MapLoader;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.Golem;
+import org.eodsteven.CrafterNexus.object.Kit;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
+import org.eodsteven.CrafterNexus.object.Shop;
+import org.eodsteven.CrafterNexus.stats.StatType;
+import org.eodsteven.CrafterNexus.stats.StatsManager;
 import org.mcstats.Metrics;
 
-public final class Annihilation extends JavaPlugin {
+public final class CrafterNexus extends JavaPlugin {
     private ConfigManager configManager;
     private VotingManager voting;
     private MapManager maps;
@@ -108,7 +106,7 @@ public final class Annihilation extends JavaPlugin {
     private SignManager sign;
     private ScoreboardManager sb;
     private DatabaseManager db;
-    private BossManager boss;
+    private GolemManager boss;
 
     public static HashMap<String, String> messages = new HashMap<String, String>();
 
@@ -182,7 +180,7 @@ public final class Annihilation extends JavaPlugin {
                 config.getInt("phase-period"));
         voting = new VotingManager(this);
         sb = new ScoreboardManager();
-        boss = new BossManager(this);
+        boss = new GolemManager(this);
 
         PluginManager pm = getServer().getPluginManager();
 
@@ -212,9 +210,9 @@ public final class Annihilation extends JavaPlugin {
         pm.registerEvents(new WandListener(this), this);
         pm.registerEvents(new CraftingListener(), this);
         pm.registerEvents(new ClassAbilityListener(this), this);
-        pm.registerEvents(new BossListener(this), this);
+        pm.registerEvents(new GolemListener(this), this);
 
-        getCommand("annihilation").setExecutor(new AnnihilationCommand(this));
+        getCommand("crafternexus").setExecutor(new CrafterNexusCommand(this));
         getCommand("class").setExecutor(new ClassCommand());
         getCommand("stats").setExecutor(new StatsCommand(stats));
         getCommand("team").setExecutor(new TeamCommand(this));
@@ -301,7 +299,7 @@ public final class Annihilation extends JavaPlugin {
                 Location loc = Util.parseLocation(w,
                         section.getString("furnaces." + name));
                 enderFurnaces.setFurnaceLocation(team, loc);
-                loc.getBlock().setType(Material.FURNACE);
+                loc.getBlock().setType(Material.BURNING_FURNACE);
             }
             if (section.contains("brewingstands." + name)) {
                 Location loc = Util.parseLocation(w,
@@ -318,13 +316,12 @@ public final class Annihilation extends JavaPlugin {
         }
 
         if (section.contains("bosses")) {
-            HashMap<String, Boss> bosses = new HashMap<String, Boss>();
+            HashMap<String, Golem> bosses = new HashMap<String, Golem>();
             ConfigurationSection sec = section
                     .getConfigurationSection("bosses");
             for (String boss : sec.getKeys(false))
-                bosses.put(
-                        boss,
-                        new Boss(boss, sec.getInt(boss + ".hearts") * 2, sec
+                bosses.put(boss,
+                        new Golem(boss, sec.getInt(boss + ".hearts") * 2, sec
                                 .getString(boss + ".name"), Util.parseLocation(
                                 w, sec.getString(boss + ".spawn")), Util
                                 .parseLocation(w,
@@ -426,14 +423,30 @@ public final class Annihilation extends JavaPlugin {
         long time = timer.getTime();
 
         if (time == -5L) {
+
             String winner = voting.getWinner();
+            voting.end();
+            getServer().broadcastMessage(ChatColor.GOLD + "Voting is now closed!");
             maps.selectMap(winner);
             getServer().broadcastMessage(
                     ChatColor.GREEN + WordUtils.capitalize(winner)
                             + " was chosen!");
             loadMap(winner);
 
-            voting.end();
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.playSound(p.getLocation(), Sound.ENDERDRAGON_WINGS, 10, 1);
+                p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
+            }
+        }
+
+        if (time <= -5L) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                //p.playSound(p.getLocation(), Sound.ENDERDRAGON_WINGS, 10, 1);
+                //p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
+                p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 2F);
+                p.playSound(p.getLocation(), Sound.NOTE_BASS_GUITAR, 10, 2F);
+                p.playSound(p.getLocation(), Sound.NOTE_PIANO, 10, 2F);
+            }
         }
 
         if (time == 0L)
@@ -504,7 +517,7 @@ public final class Annihilation extends JavaPlugin {
             PlayerMeta.getMeta(p).setTeam(GameTeam.NONE);
             p.teleport(maps.getLobbySpawnPoint());
             BarUtil.setMessageAndPercent(p, ChatColor.DARK_AQUA
-                    + "Welcome to Annihilation!", 0.01F);
+                    + "Welcome to Crafter's Nexus!", 0.01F);
             p.setMaxHealth(20D);
             p.setHealth(20D);
             p.setFoodLevel(20);
@@ -523,6 +536,7 @@ public final class Annihilation extends JavaPlugin {
 
         Bukkit.getScheduler().runTaskLater(this, new Runnable() {
             @SuppressWarnings("deprecation")
+            @Override
             public void run() {
                 for (Player p : getServer().getOnlinePlayers()) {
                     PlayerInventory inv = p.getInventory();
@@ -590,7 +604,7 @@ public final class Annihilation extends JavaPlugin {
         }
     }
 
-    public BossManager getBossManager() {
+    public GolemManager getBossManager() {
         return boss;
     }
 
@@ -623,7 +637,7 @@ public final class Annihilation extends JavaPlugin {
     public void joinTeam(Player player, String team) {
         PlayerMeta meta = PlayerMeta.getMeta(player);
         if (meta.getTeam() != GameTeam.NONE && !player.hasPermission("annihilation.bypass.teamlimitor")) {
-            player.sendMessage(ChatColor.DARK_AQUA + _("ERROR_PLAYER_NOSWITCHTEAM"));
+            player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.DARK_AQUA + _("ERROR_PLAYER_NOSWITCHTEAM"));
             return;
         }
 
@@ -631,32 +645,32 @@ public final class Annihilation extends JavaPlugin {
         try {
             target = GameTeam.valueOf(team.toUpperCase());
         } catch (IllegalArgumentException e) {
-            player.sendMessage(ChatColor.RED + _("ERROR_GAME_INVALIDTEAM"));
+            player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_INVALIDTEAM"));
             listTeams(player);
             return;
         }
 
         if (Util.isTeamTooBig(target)
                 && !player.hasPermission("annihilation.bypass.teamlimit")) {
-            player.sendMessage(ChatColor.RED + _("ERROR_GAME_TEAMFULL"));
+            player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_TEAMFULL"));
             return;
         }
 
         if (target.getNexus() != null) {
             if (target.getNexus().getHealth() == 0 && getPhase() > 1) {
-                player.sendMessage(ChatColor.RED + _("ERROR_GAME_TEAMNONEXUS"));
+                player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_TEAMNONEXUS"));
                 return;
             }
         }
 
         if (getPhase() > lastJoinPhase
                 && !player.hasPermission("annhilation.bypass.phaselimiter")) {
-            player.kickPlayer(ChatColor.RED
+            player.kickPlayer(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED
                     + "You cannot join the game in this phase!");
             return;
         }
 
-        player.sendMessage(ChatColor.DARK_AQUA + "You joined "
+        player.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.DARK_AQUA + "You joined "
                 + target.coloredName());
         meta.setTeam(target);
 
