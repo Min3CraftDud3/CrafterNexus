@@ -16,22 +16,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import net.coasterman10.Annihilation.Annihilation;
+package org.eodsteven.CrafterNexus.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
-public class AnnihilationCommand implements CommandExecutor {
-    private Annihilation plugin;
+public class CrafterNexusCommand implements CommandExecutor {
+    private CrafterNexus plugin;
 
-    public AnnihilationCommand(Annihilation plugin) {
+    public CrafterNexusCommand(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         String cyan = ChatColor.DARK_AQUA.toString();
         String white = ChatColor.WHITE.toString();
@@ -41,20 +41,20 @@ public class AnnihilationCommand implements CommandExecutor {
         String yellow = ChatColor.YELLOW.toString();
         String dgray = ChatColor.DARK_GRAY.toString();
         String green = ChatColor.GREEN.toString();
-        String prefix = cyan + "[Annihilation] " + gray;
+        String prefix = cyan + "[CrafterNexus] " + gray;
         
         if (args.length == 0) {
-            sender.sendMessage(prefix + white + "Annihilation v" + plugin.getDescription().getVersion() + " by coasterman10 & stuntguy3000.");
-            sender.sendMessage(prefix + gold + "Download Annihilation at");
-            sender.sendMessage(prefix + yellow + "http://dev.bukkit.org/bukkit-plugins/anni/");
+            sender.sendMessage(prefix + white + "Crafter Nexus" + plugin.getDescription().getVersion() + " by coasterman10 & stuntguy3000.");
+            sender.sendMessage(prefix + gold + "Recoded for 1.7.10 by");
+            sender.sendMessage(prefix + yellow + "EODCrafter");
             sender.sendMessage(prefix + gray + "Command Help:");
-            sender.sendMessage(prefix + gray + "/anni " + dgray + "-" + white + " Show plugin information.");
-            sender.sendMessage(prefix + gray + "/anni start " + dgray + "-" + white + " Begin the game.");
+            sender.sendMessage(prefix + gray + "/crafternexus " + dgray + "-" + white + " Show plugin information.");
+            sender.sendMessage(prefix + gray + "/cn start " + dgray + "-" + white + " Begin the game.");
         }
         
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("start")) {
-                if (sender.hasPermission("annihilation.command.start")) {
+                if (sender.hasPermission("crafternexus.command.start")) {
                     if (!plugin.startTimer()) {
                         sender.sendMessage(prefix + red + "The game has already started");
                     } else {
