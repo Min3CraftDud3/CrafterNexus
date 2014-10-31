@@ -16,18 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import net.coasterman10.Annihilation.Util;
-
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.eodsteven.CrafterNexus.Util;
 
 public class WorldListener implements Listener {
     private static final Set<EntityType> hostileEntityTypes = new HashSet<EntityType>() {
