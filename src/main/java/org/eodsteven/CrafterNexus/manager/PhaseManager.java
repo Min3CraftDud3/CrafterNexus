@@ -16,18 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.bar.BarUtil;
-import net.coasterman10.Annihilation.chat.ChatUtil;
-import net.coasterman10.Annihilation.object.GameTeam;
+package org.eodsteven.CrafterNexus.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.chat.ChatUtil;
+import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class PhaseManager {
     private long time;
@@ -36,11 +35,11 @@ public class PhaseManager {
     private int phase;
     private boolean isRunning;
 
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
 
     private int taskID;
 
-    public PhaseManager(Annihilation plugin, int start, int period) {
+    public PhaseManager(CrafterNexus plugin, int start, int period) {
         this.plugin = plugin;
         startTime = start;
         phaseTime = period;
