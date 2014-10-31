@@ -16,13 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
 import java.util.List;
-
-import net.coasterman10.Annihilation.Annihilation;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -38,9 +35,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BlockIterator;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 public class WandListener implements Listener {
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
     private static final String prefix = ChatColor.YELLOW.toString()
             + ChatColor.BOLD.toString();
     public static final String apprenticeName = prefix + "Apprentice Wand";
@@ -54,7 +52,7 @@ public class WandListener implements Listener {
     private final HashMap<String, Boolean> apprenticeCooldown = new HashMap<String, Boolean>();
     private final HashMap<String, Boolean> masterCooldown = new HashMap<String, Boolean>();
 
-    public WandListener(Annihilation plugin) {
+    public WandListener(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
@@ -118,6 +116,7 @@ public class WandListener implements Listener {
         final String name = user.getName();
         apprenticeCooldown.put(name, true);
         plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
                 apprenticeCooldown.put(name, false);
             }
@@ -134,6 +133,7 @@ public class WandListener implements Listener {
         final String name = user.getName();
         masterCooldown.put(name, true);
         plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
                 masterCooldown.put(name, false);
             }
