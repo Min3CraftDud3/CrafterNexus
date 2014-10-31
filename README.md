@@ -1,7 +1,7 @@
 CrafterNexus
 ============
 
-1.7.10 Version of Annihilation
+MineCraft 1.7.10 Version of Annihilation
 
  **Simple Description**: A open source replica of the ShotBow Network's game, Annihilation. 
 
