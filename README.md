@@ -1,12 +1,14 @@
-# Annihilation
-[![Build Status](https://api.travis-ci.org/coasterman10/Annihilation.png?branch=master)](https://api.travis-ci.org/stuntguy3000/GameCore)
+# Crfater Nexus (Annihilation)
+[![Build Status](Not Currently Available
 
 Do you own a server where you need a minigame that means more? Are you a server owner looking for a game that will make players stay for hours on your server on end? Well Annihilation is definetly for you!
 
-Download now! http://dev.bukkit.org/bukkit-plugins/anni/
+Download now! (Not Available anymore)
 
  **Simple Description**: A open source replica of the ShotBow Network's game, Annihilation. 
 
  **Developers**: coasterman10, stuntguy3000
+ 
+ **Recoded**: for 1.7.10 by EODCrafter
 
-* **Current Version**: v1.5
+* **Current Version**: v1.7.1
