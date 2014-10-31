@@ -16,9 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.maps;
-
-import net.coasterman10.Annihilation.maps.MapLoader;
+package org.eodsteven.CrafterNexus.maps;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
