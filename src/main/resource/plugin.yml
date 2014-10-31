@@ -1,14 +1,14 @@
-name: Anni
-main: net.coasterman10.Annihilation.Annihilation
+name: CrafterNexus
+main: org.eodsteven.CrafterNexus.CrafterNexus
 authors: [coasterman10, stuntguy3000]
 softdepend: [Vault]
 version: ${project.version}
 commands:
-  annihilation:
-    description: Plugin commands for Annihilation
-    aliases: anni
+  crafternexus:
+    description: Plugin commands for CrafterNexus
+    aliases: cn
   team:
-    description: Team command for Annihilation
+    description: Team command for CrafterNexus
     aliases: t
   vote:
     description: Places vote for a map
