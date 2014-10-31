@@ -16,16 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.Kit;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -42,15 +36,20 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.Kit;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class ClassAbilityListener implements Listener {
     private final HashMap<String, Location> blockLocations = new HashMap<String, Location>();
     private final HashMap<String, Long> cooldowns = new HashMap<String, Long>();
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
 
-    public ClassAbilityListener(Annihilation plugin) {
+    public ClassAbilityListener(CrafterNexus plugin) {
         this.plugin = plugin;
         Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+            @Override
             public void run() {
                 update();
             }
@@ -113,6 +112,7 @@ public class ClassAbilityListener implements Listener {
                                 + "You will be teleported back here in 90 seconds");
                         Bukkit.getScheduler().runTaskLater(plugin,
                                 new Runnable() {
+                                    @Override
                                     public void run() {
                                         placed.setType(Material.SOUL_SAND);
                                     }
@@ -204,6 +204,7 @@ public class ClassAbilityListener implements Listener {
                     final Location returnPoint = blockLocations.get(name);
                     returnPoint.getBlock().setType(Material.AIR);
                     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                        @Override
                         public void run() {
                             player.teleport(returnPoint);
                             player.sendMessage(ChatColor.DARK_AQUA
