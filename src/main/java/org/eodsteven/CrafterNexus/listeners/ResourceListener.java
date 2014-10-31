@@ -16,17 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.object.Kit;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -38,6 +33,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.object.Kit;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class ResourceListener implements Listener {
     private class Resource {
@@ -52,13 +50,13 @@ public class ResourceListener implements Listener {
         }
     }
 
-    private final Annihilation plugin;
+    private final CrafterNexus plugin;
     private final HashMap<Material, Resource> resources = new HashMap<Material, Resource>();
     private final HashSet<Location> queue = new HashSet<Location>();
     private final Set<Location> diamonds = new HashSet<Location>();
     private Random rand = new Random();
 
-    public ResourceListener(Annihilation plugin) {
+    public ResourceListener(CrafterNexus plugin) {
         this.plugin = plugin;
         
         addResource(Material.COAL_ORE, 8, 10);
@@ -139,6 +137,7 @@ public class ResourceListener implements Listener {
         queue.add(block.getLocation());
         plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
             @SuppressWarnings("deprecation")
+            @Override
             public void run() {
                 block.setType(type);
                 queue.remove(block.getLocation());
