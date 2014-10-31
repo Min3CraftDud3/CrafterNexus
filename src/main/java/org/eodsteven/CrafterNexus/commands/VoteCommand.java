@@ -16,15 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import static net.coasterman10.Annihilation.Translation._;
-import net.coasterman10.Annihilation.manager.VotingManager;
+package org.eodsteven.CrafterNexus.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import static org.eodsteven.CrafterNexus.Translation._;
+import org.eodsteven.CrafterNexus.manager.VotingManager;
 
 public class VoteCommand implements CommandExecutor {
     private final VotingManager manager;
@@ -33,21 +32,22 @@ public class VoteCommand implements CommandExecutor {
         this.manager = manager;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!manager.isRunning())
-            sender.sendMessage(ChatColor.RED + _("INFO_COMMAND_VOTING_ENDED"));
+            sender.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("INFO_COMMAND_VOTING_ENDED"));
         else if (args.length == 0)
             listMaps(sender);
         else if (!manager.vote(sender, args[0])) {
-            sender.sendMessage(ChatColor.RED + _("INFO_COMMAND_VOTING_INVALID"));
+            sender.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("INFO_COMMAND_VOTING_INVALID"));
             listMaps(sender);
         }
         return true;
     }
 
     private void listMaps(CommandSender sender) {
-        sender.sendMessage(ChatColor.DARK_AQUA + _("INFO_COMMAND_VOTING_MAPS"));
+        sender.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.DARK_AQUA + _("INFO_COMMAND_VOTING_MAPS"));
         int count = 0;
         for (String map : manager.getMaps().values()) {
             count ++;
