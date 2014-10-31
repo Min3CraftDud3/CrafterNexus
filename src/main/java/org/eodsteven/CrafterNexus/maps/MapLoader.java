@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.maps;
+package org.eodsteven.CrafterNexus.maps;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,8 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 
 public class MapLoader {
@@ -53,7 +53,7 @@ public class MapLoader {
             copyFolder(source, destination);
             return true;
         } catch (IOException e) {
-            log.severe("Could not load map " + name);
+            log.log(Level.SEVERE, "Could not load map {0}", name);
             e.printStackTrace();
             return false;
         }
@@ -72,7 +72,7 @@ public class MapLoader {
             copyFolder(source, destination);
             return true;
         } catch (IOException e) {
-            log.severe("Could not save map " + name);
+            log.log(Level.SEVERE, "Could not save map {0}", name);
             e.printStackTrace();
             return false;
         }
@@ -80,8 +80,7 @@ public class MapLoader {
 
     private void copyFolder(File src, File dest) throws IOException {
         if (!src.exists()) {
-            log.severe("File " + src.toString()
-                    + " does not exist, cannot copy");
+            log.log(Level.SEVERE, "File {0} does not exist, cannot copy", src.toString());
             return;
         }
 
@@ -93,11 +92,9 @@ public class MapLoader {
             String[] srcFiles = src.list();
 
             if (existed)
-                log.info("Copying folder " + src.getAbsolutePath()
-                        + " and overwriting " + dest.getAbsolutePath());
+                log.log(Level.INFO, "Copying folder {0} and overwriting {1}", new Object[]{src.getAbsolutePath(), dest.getAbsolutePath()});
             else
-                log.info("Copying folder " + src.getAbsolutePath() + " to "
-                        + dest.getAbsolutePath());
+                log.log(Level.INFO, "Copying folder {0} to {1}", new Object[]{src.getAbsolutePath(), dest.getAbsolutePath()});
 
             for (String file : srcFiles) {
                 File srcFile = new File(src, file);
@@ -106,29 +103,28 @@ public class MapLoader {
             }
 
             if (existed)
-                log.info("Overwrote folder " + dest.getAbsolutePath());
+                log.log(Level.INFO, "Overwrote folder {0}", dest.getAbsolutePath());
             else
-                log.info("Copied folder " + dest.getAbsolutePath());
+                log.log(Level.INFO, "Copied folder {0}", dest.getAbsolutePath());
 
         } else {
-            InputStream in = new FileInputStream(src);
-            OutputStream out = new FileOutputStream(dest);
-
-            boolean existed = dest.exists();
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
+            OutputStream out;
+            boolean existed;
+            try (InputStream in = new FileInputStream(src)) {
+                out = new FileOutputStream(dest);
+                existed = dest.exists();
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
             }
-
-            in.close();
             out.close();
 
             if (existed)
-                log.info("Overwrote file " + dest.getName());
+                log.log(Level.INFO, "Overwrote file {0}", dest.getName());
             else
-                log.info("Copied file " + dest.getName());
+                log.log(Level.INFO, "Copied file {0}", dest.getName());
         }
     }
 }
