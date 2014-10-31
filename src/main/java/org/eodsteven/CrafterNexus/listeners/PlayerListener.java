@@ -16,25 +16,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.listeners;
+package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
 import java.util.Random;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.api.NexusDamageEvent;
-import net.coasterman10.Annihilation.api.NexusDestroyEvent;
-import net.coasterman10.Annihilation.bar.BarUtil;
-import net.coasterman10.Annihilation.chat.ChatUtil;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.Kit;
-import net.coasterman10.Annihilation.object.PlayerMeta;
-import net.coasterman10.Annihilation.stats.StatType;
-import net.minecraft.server.v1_7_R1.EntityPlayer;
-import net.minecraft.server.v1_7_R1.EnumClientCommand;
-import net.minecraft.server.v1_7_R1.PacketPlayInClientCommand;
-
+import net.minecraft.server.v1_7_R4.EntityPlayer;
+import net.minecraft.server.v1_7_R4.EnumClientCommand;
+import net.minecraft.server.v1_7_R4.PacketPlayInClientCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -42,7 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,13 +56,23 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.api.NexusDamageEvent;
+import org.eodsteven.CrafterNexus.api.NexusDestroyEvent;
+import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.chat.ChatUtil;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.Kit;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
+import org.eodsteven.CrafterNexus.stats.StatType;
 
 public class PlayerListener implements Listener {
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
     private HashMap<String, Kit> kitsToGive = new HashMap<String, Kit>();
 
-    public PlayerListener(Annihilation plugin) {
+    public PlayerListener(CrafterNexus plugin) {
         this.plugin = plugin;
     }
 
@@ -233,14 +231,14 @@ public class PlayerListener implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        String prefix = ChatColor.DARK_AQUA + "[Annihilation] "
+        String prefix = ChatColor.DARK_AQUA + "[CrafterNexus] "
                 + ChatColor.GRAY;
         final Player player = e.getPlayer();
 
         PlayerMeta meta = PlayerMeta.getMeta(player);
 
         if (plugin.getPhase() > plugin.lastJoinPhase
-                && !player.hasPermission("annhilation.bypass.phaselimiter")) {
+                && !player.hasPermission("crafternexus.bypass.phaselimiter")) {
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
                 public void run() {
                     player.kickPlayer((ChatColor.RED + "ANNIHILATION-TRIGGER-KICK-01"));
@@ -251,12 +249,12 @@ public class PlayerListener implements Listener {
         }
 
         player.sendMessage(prefix + ChatColor.GREEN
-                + "Welcome to Annihilation!");
-        player.sendMessage(ChatColor.GRAY
+                + "Welcome to CrafterNexus!");
+        player.sendMessage(ChatColor.BLACK
                 + "Open-source replica by stuntguy3000 and coasterman10");
-        player.sendMessage(ChatColor.GRAY + "Original plugin by xxsaundersxx");
+        player.sendMessage(ChatColor.GRAY + "Recoded for 1.7.10 by EODCrafter");
 
-        if (player.hasPermission("annihilation.misc.updatenotify")
+        if (player.hasPermission("crafternexus.misc.updatenotify")
                 && plugin.updateAvailable) {
             player.sendMessage(prefix
                     + ChatColor.GOLD
@@ -307,7 +305,7 @@ public class PlayerListener implements Listener {
 
         if (plugin.getPhase() == 0 && plugin.getVotingManager().isRunning()) {
             BarUtil.setMessageAndPercent(player, ChatColor.DARK_AQUA
-                    + "Welcome to Annihilation!", 0.01f);
+                    + "Welcome to CrafterNexus!", 0.01f);
             plugin.checkStarting();
         }
 
@@ -346,6 +344,7 @@ public class PlayerListener implements Listener {
         e.setDroppedExp(p.getTotalExperience());
 
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
                 PacketPlayInClientCommand in = new PacketPlayInClientCommand(
                         EnumClientCommand.PERFORM_RESPAWN);
@@ -413,21 +412,21 @@ public class PlayerListener implements Listener {
                 e.setCancelled(true);
 
             if (tooClose(e.getBlock().getLocation())
-                    && !e.getPlayer().hasPermission("annihilation.buildbypass")) {
+                    && !e.getPlayer().hasPermission("crafternexus.buildbypass")) {
                 e.getPlayer().sendMessage(
                         ChatColor.RED
                                 + "You cannot build this close to the nexus!");
                 e.setCancelled(true);
             }
         } else {
-            if (!e.getPlayer().hasPermission("annihilation.buildbypass"))
+            if (!e.getPlayer().hasPermission("crafternexus.buildbypass"))
                 e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onSignPlace(SignChangeEvent e) {
-        if (e.getPlayer().hasPermission("annihilation.buildbypass"))
+        if (e.getPlayer().hasPermission("crafternexus.buildbypass"))
             if (e.getLine(0).toLowerCase().contains("[Shop]".toLowerCase()))
                 e.setLine(0, ChatColor.DARK_PURPLE + "[Shop]");
     }
@@ -446,7 +445,7 @@ public class PlayerListener implements Listener {
             }
 
             if (tooClose(e.getBlock().getLocation())
-                    && !e.getPlayer().hasPermission("annihilation.buildbypass")
+                    && !e.getPlayer().hasPermission("crafternexus.buildbypass")
                     && e.getBlock().getType() != Material.ENDER_STONE) {
                 e.getPlayer().sendMessage(
                         ChatColor.RED
@@ -454,7 +453,7 @@ public class PlayerListener implements Listener {
                 e.setCancelled(true);
             }
         } else {
-            if (!e.getPlayer().hasPermission("annihilation.buildbypass"))
+            if (!e.getPlayer().hasPermission("crafternexus.buildbypass"))
                 e.setCancelled(true);
         }
     }
@@ -491,7 +490,7 @@ public class PlayerListener implements Listener {
         final GameTeam attacker = PlayerMeta.getMeta(breaker).getTeam();
         if (victim == attacker)
             breaker.sendMessage(ChatColor.DARK_AQUA
-                    + "You can't damage your own nexus");
+                    + "Why would you want to damage your own nexus?");
         else if (plugin.getPhase() == 1)
             breaker.sendMessage(ChatColor.DARK_AQUA
                     + "Nexuses are invincible in phase 1");
