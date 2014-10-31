@@ -16,42 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.HashMap;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.Util;
-import net.coasterman10.Annihilation.object.Boss;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.Util;
+import org.eodsteven.CrafterNexus.object.Golem;
 
-public class BossManager {
-    public HashMap<String, Boss> bosses = new HashMap<String, Boss>();
-    public HashMap<String, Boss> bossNames = new HashMap<String, Boss>();
+public class GolemManager {
+    public HashMap<String, Golem> bosses = new HashMap<String, Golem>();
+    public HashMap<String, Golem> bossNames = new HashMap<String, Golem>();
 
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
-    public BossManager(Annihilation instance) {
+    public GolemManager(CrafterNexus instance) {
         this.plugin = instance;
     }
 
-    public void loadBosses(HashMap<String, Boss> b) {
+    public void loadBosses(HashMap<String, Golem> b) {
         bosses = b;
     }
 
     public void spawnBosses() {
-        for (Boss b : bosses.values())
+        for (Golem b : bosses.values())
             spawn(b);
     }
 
     @SuppressWarnings("deprecation")
-    public void spawn(Boss b) {
+    public void spawn(Golem b) {
         Location spawn = b.getSpawn();
 
         if (spawn != null && spawn.getWorld() != null) {
@@ -72,7 +70,7 @@ public class BossManager {
         }
     }
 
-    public void update(Boss boss, IronGolem g) {
+    public void update(Golem boss, IronGolem g) {
         boss.setHealth((int) g.getHealth());
         g.setCustomName(ChatColor.translateAlternateColorCodes('&',
                 boss.getBossName() + " &8» &a" + (int) boss.getHealth() + " HP"));
@@ -80,7 +78,7 @@ public class BossManager {
         bosses.put(boss.getConfigName(), boss);
     }
 
-    public Boss newBoss(Boss b) {
+    public Golem newBoss(Golem b) {
         String boss = b.getConfigName();
         bosses.remove(boss);
         bossNames.remove(boss);
@@ -91,7 +89,7 @@ public class BossManager {
                 .getMapManager().getCurrentMap().getName());
         ConfigurationSection sec = section.getConfigurationSection("bosses");
 
-        Boss bb = new Boss(boss, sec.getInt(boss + ".hearts") * 2,
+        Golem bb = new Golem(boss, sec.getInt(boss + ".hearts") * 2,
                 sec.getString(boss + ".name"), Util.parseLocation(plugin
                         .getMapManager().getCurrentMap().getWorld(),
                         sec.getString(boss + ".spawn")), Util.parseLocation(
