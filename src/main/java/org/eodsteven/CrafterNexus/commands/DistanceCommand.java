@@ -16,38 +16,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.commands;
-
-import static net.coasterman10.Annihilation.Translation._;
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.object.GameTeam;
-import net.coasterman10.Annihilation.object.PlayerMeta;
+package org.eodsteven.CrafterNexus.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import static org.eodsteven.CrafterNexus.Translation._;
+import org.eodsteven.CrafterNexus.object.GameTeam;
+import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class DistanceCommand implements CommandExecutor {
-    private Annihilation plugin;
+    private CrafterNexus plugin;
 
-    public DistanceCommand(Annihilation instance) {
+    public DistanceCommand(CrafterNexus instance) {
         this.plugin = instance;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
             if (plugin.getPhase() == 0) {
-                p.sendMessage(ChatColor.RED + _("ERROR_GAME_NOTSTARTED"));
+                p.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_GAME_NOTSTARTED"));
                 return false;
             }
 
             if (PlayerMeta.getMeta(p).getTeam() == GameTeam.NONE) {
-                p.sendMessage(ChatColor.RED + _("ERROR_PLAYER_NOTEAM"));
+                p.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_PLAYER_NOTEAM"));
                 return false;
             }
 
@@ -62,7 +62,7 @@ public class DistanceCommand implements CommandExecutor {
 
             p.sendMessage(ChatColor.GRAY + "============================");
         } else {
-            sender.sendMessage(ChatColor.RED + _("ERROR_CONSOLE_PLAYERCOMMAND"));
+            sender.sendMessage(ChatColor.GOLD + _("CRAFTERNEXUS_PREFIX") + ChatColor.RED + _("ERROR_CONSOLE_PLAYERCOMMAND"));
         }
 
         return true;
