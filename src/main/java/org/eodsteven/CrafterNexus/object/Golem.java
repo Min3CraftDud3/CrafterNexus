@@ -48,6 +48,7 @@ public final class Golem {
         this.bossName = bossName;
         this.spawn = spawn;
         this.chest = chest;
+        //A little OP but I like it!
         this.loot.put(new ItemStack(Material.IRON_INGOT,1),(float) 1);
         this.loot.put(new ItemStack(Material.IRON_BOOTS,1),(float) 1);
         this.loot.put(new ItemStack(Material.IRON_CHESTPLATE,1),(float) 1);
