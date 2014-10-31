@@ -16,12 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.bar;
+package org.eodsteven.CrafterNexus.bar;
 
 import java.util.HashMap;
-
-import net.coasterman10.Annihilation.Annihilation;
-
+import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,20 +30,22 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.eodsteven.CrafterNexus.CrafterNexus;
 
 ;
 
 public class BarUtil implements Listener {
     private static BarUtil instance;
 
-    private Annihilation plugin;
-    private HashMap<String, FakeDragon> players = new HashMap<String, FakeDragon>();
+    private CrafterNexus plugin;
+    private static HashMap<UUID, FakeDragon> players = new HashMap<UUID, FakeDragon>();
+    private static HashMap<UUID, Integer> timers = new HashMap<UUID, Integer>();
 
     private BarUtil() {
 
     }
 
-    public static void init(Annihilation plugin) {
+    public static void init(CrafterNexus plugin) {
         instance = new BarUtil();
         instance.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(instance, plugin);
@@ -52,14 +53,14 @@ public class BarUtil implements Listener {
 
     public static void setMessageAndPercent(Player player, String message,
             float percent) {
-        FakeDragon dragon = instance.getDragon(player, message);
+		FakeDragon dragon = instance.getDragon(player, message);
         if (message.length() > 64)
             dragon.name = message.substring(0, 63);
         else
             dragon.name = message;
         dragon.health = percent * FakeDragon.MAX_HEALTH;
-        instance.sendDragon(dragon, player);
-    }
+		instance.sendDragon(dragon, player);
+	}
 
     public static void setMessage(Player player, String message) {
         FakeDragon dragon = instance.getDragon(player, message);
@@ -79,6 +80,20 @@ public class BarUtil implements Listener {
         dragon.health = percent * FakeDragon.MAX_HEALTH;
         instance.sendDragon(dragon, player);
     }
+    private static String cleanMessage(String message) {
+		if (message.length() > 64)
+			message = message.substring(0, 63);
+
+		return message;
+	}
+
+	private static void cancelTimer(Player player) {
+		Integer timerID = timers.remove(player.getUniqueId());
+
+		if (timerID != null) {
+			Bukkit.getScheduler().cancelTask(timerID);
+		}
+	}
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void PlayerLogout(PlayerQuitEvent event) {
@@ -113,7 +128,7 @@ public class BarUtil implements Listener {
                 FakeDragon oldDragon = getDragon(player, "");
                 Object destroyPacket = getDragon(player, "").getDestroyPacket();
                 Util.sendPacket(player, destroyPacket);
-                players.remove(player.getName());
+                players.remove(player.getUniqueId());
 
                 FakeDragon dragon = addDragon(player, loc, oldDragon.name);
                 dragon.health = oldDragon.health;
@@ -123,14 +138,14 @@ public class BarUtil implements Listener {
     }
 
     private boolean hasBar(Player player) {
-        return players.get(player.getName()) != null;
+        return players.get(player.getUniqueId()) != null;
     }
 
     private void removeBar(Player player) {
         if (instance.hasBar(player)) {
             Util.sendPacket(player, instance.getDragon(player, "")
                     .getDestroyPacket());
-            instance.players.remove(player.getName());
+            instance.players.remove(player.getUniqueId());
         }
     }
 
@@ -145,7 +160,7 @@ public class BarUtil implements Listener {
 
     private FakeDragon getDragon(Player player, String message) {
         if (hasBar(player))
-            return players.get(player.getName());
+            return players.get(player.getUniqueId());
         else
             return addDragon(player, message);
     }
@@ -156,7 +171,7 @@ public class BarUtil implements Listener {
 
         Util.sendPacket(player, dragon.getSpawnPacket());
 
-        players.put(player.getName(), dragon);
+        players.put(player.getUniqueId(), dragon);
 
         return dragon;
     }
@@ -166,7 +181,7 @@ public class BarUtil implements Listener {
 
         Util.sendPacket(player, dragon.getSpawnPacket());
 
-        players.put(player.getName(), dragon);
+        players.put(player.getUniqueId(), dragon);
 
         return dragon;
     }
