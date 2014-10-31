@@ -16,22 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.manager;
+package org.eodsteven.CrafterNexus.manager;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import net.coasterman10.Annihilation.Annihilation;
-import net.coasterman10.Annihilation.maps.GameMap;
-import net.coasterman10.Annihilation.maps.MapLoader;
-import net.coasterman10.Annihilation.maps.VoidGenerator;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.Configuration;
+import org.eodsteven.CrafterNexus.CrafterNexus;
+import org.eodsteven.CrafterNexus.maps.GameMap;
+import org.eodsteven.CrafterNexus.maps.MapLoader;
+import org.eodsteven.CrafterNexus.maps.VoidGenerator;
 
 public class MapManager {
     private final ArrayList<String> maps = new ArrayList<String>();
@@ -39,7 +37,7 @@ public class MapManager {
     private Location lobbySpawn;
     private MapLoader mapLoader;
     
-    public MapManager(Annihilation plugin, MapLoader loader, Configuration config) {
+    public MapManager(CrafterNexus plugin, MapLoader loader, Configuration config) {
         mapLoader = loader;
         for (String s : config.getKeys(false)) {
             if (!s.equalsIgnoreCase("lobby"))
