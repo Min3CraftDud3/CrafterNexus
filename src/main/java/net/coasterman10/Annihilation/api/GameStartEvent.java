@@ -16,12 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  ******************************************************************************/
-package net.coasterman10.Annihilation.api;
-
-import net.coasterman10.Annihilation.maps.GameMap;
+package org.eodsteven.CrafterNexus.api;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.eodsteven.CrafterNexus.maps.GameMap;
 
 public class GameStartEvent extends Event {
     
@@ -33,6 +32,7 @@ public class GameStartEvent extends Event {
         this.m = m;
     }
     
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
