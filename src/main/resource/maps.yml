@@ -2,6 +2,12 @@
 # "x,y,z"
 # or, if you would like to add yaw/pitch
 # "x,y,z,yaw,pitch"
+#####################################################################/
+# Map edit and save command are (C)ase (s)ensitive...                /
+# I have some test Maps (blank) that correspond to these settings at:/
+# https://www.dropbox.com/s/zgudajc5hzlmvai/Maps.rar?dl=0            /  
+# Download More Complete Maps from the Shotbow Network.              /
+#####################################################################/
 
 test:
   # Spawn points for each team, can have as many entries as you like.
