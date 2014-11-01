@@ -19,15 +19,12 @@
 package org.eodsteven.CrafterNexus;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
-import net.gravitydevelopment.updater.Updater;
-import net.gravitydevelopment.updater.Updater.UpdateResult;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -91,7 +88,6 @@ import org.eodsteven.CrafterNexus.object.PlayerMeta;
 import org.eodsteven.CrafterNexus.object.Shop;
 import org.eodsteven.CrafterNexus.stats.StatType;
 import org.eodsteven.CrafterNexus.stats.StatsManager;
-import org.mcstats.Metrics;
 
 public final class CrafterNexus extends JavaPlugin {
     private ConfigManager configManager;
@@ -126,30 +122,6 @@ public final class CrafterNexus extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-
-        }
-
-        UpdateResult updateResult = null;
-        Updater u = null;
-
-        if (this.getConfig().getBoolean("allowUpdater"))
-            u = new Updater(this, 72127, this.getFile(),
-                    Updater.UpdateType.DEFAULT, true);
-
-        if (u != null)
-            updateResult = u.getResult();
-
-        if (updateResult != null) {
-            if (updateResult == UpdateResult.SUCCESS) {
-                updateAvailable = true;
-                newVersion = u.getLatestName();
-            }
-        }
-
         configManager = new ConfigManager(this);
         configManager.loadConfigFiles("config.yml", "maps.yml", "shops.yml",
                 "stats.yml", "messages.yml");
