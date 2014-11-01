@@ -53,7 +53,7 @@
         <resources>
             <resource>
                 <filtering>true</filtering>
-                <directory>src/main/resources/</directory>
+                <directory>src/main/resource/</directory>
                 <includes>
                     <include>*.yml</include>
                 </includes>
