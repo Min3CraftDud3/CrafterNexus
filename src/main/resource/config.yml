@@ -45,7 +45,7 @@ MySQL:
 roman: true
 
 # Auto updater
-allowUpdater: true
+allowUpdater: false
 
 # Amount of players required to start the game
 requiredToStart: 2
