@@ -66,6 +66,7 @@ public class ResourceListener implements Listener {
         addResource(Material.EMERALD_ORE, 18, 40);
         addResource(Material.REDSTONE_ORE, 10, 20);
         addResource(Material.GLOWING_REDSTONE_ORE, 10, 20);
+        addResource(Material.LAPIS_ORE, 10, 20);
         addResource(Material.LOG, 2, 10);
         addResource(Material.GRAVEL, 2, 20);
         addResource(Material.MELON_BLOCK, 0, 10);
