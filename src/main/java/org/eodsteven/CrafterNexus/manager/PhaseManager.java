@@ -51,6 +51,7 @@ public class PhaseManager {
             BukkitScheduler scheduler = plugin.getServer().getScheduler();
             taskID = scheduler.scheduleSyncRepeatingTask(plugin,
                     new Runnable() {
+                        @Override
                         public void run() {
                             onSecond();
                         }

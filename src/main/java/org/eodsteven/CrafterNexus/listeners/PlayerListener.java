@@ -70,7 +70,7 @@ import org.eodsteven.CrafterNexus.stats.StatType;
 public class PlayerListener implements Listener {
     private CrafterNexus plugin;
 
-    private HashMap<String, Kit> kitsToGive = new HashMap<String, Kit>();
+    private HashMap<String, Kit> kitsToGive = new HashMap<>();
 
     public PlayerListener(CrafterNexus plugin) {
         this.plugin = plugin;
@@ -240,6 +240,7 @@ public class PlayerListener implements Listener {
         if (plugin.getPhase() > plugin.lastJoinPhase
                 && !player.hasPermission("crafternexus.bypass.phaselimiter")) {
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
                 public void run() {
                     player.kickPlayer((ChatColor.RED + "ANNIHILATION-TRIGGER-KICK-01"));
                 }
@@ -252,7 +253,7 @@ public class PlayerListener implements Listener {
                 + "Welcome to CrafterNexus!");
         player.sendMessage(ChatColor.BLACK
                 + "Open-source replica by stuntguy3000 and coasterman10");
-        player.sendMessage(ChatColor.GRAY + "Recoded for 1.7.10 by EODCrafter");
+        player.sendMessage(ChatColor.GRAY + "Recoded for 1.8.0 by EODCrafter");
 
         if (player.hasPermission("crafternexus.misc.updatenotify")
                 && plugin.updateAvailable) {
@@ -372,6 +373,7 @@ public class PlayerListener implements Listener {
         final Player player = e.getPlayer();
         player.setHealth(0D);
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
                 Util.showClassSelector(player, "Select Class");
             }
@@ -515,6 +517,7 @@ public class PlayerListener implements Listener {
                                     .getNexus().getHealth()));
 
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
                 public void run() {
                     plugin.getScoreboardHandler().sb.getTeam(
                             victim.name() + "SB").setPrefix(
@@ -558,6 +561,7 @@ public class PlayerListener implements Listener {
 
                 for (final Location spawn : victim.getSpawns()) {
                     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                        @Override
                         public void run() {
                             Util.spawnFirework(spawn,
                                     attacker.getColor(attacker),
@@ -571,6 +575,7 @@ public class PlayerListener implements Listener {
                         0, 20);
 
                 Bukkit.getScheduler().runTask(plugin, new Runnable() {
+                    @Override
                     public void run() {
                         Location nexus = victim.getNexus().getLocation()
                                 .clone();

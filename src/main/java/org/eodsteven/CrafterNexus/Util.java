@@ -19,12 +19,14 @@
 package org.eodsteven.CrafterNexus;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.Effect;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.GameMode;
@@ -155,13 +157,13 @@ public class Util {
                 float offsetZ, float speed, int count) throws Exception {
             if (count <= 0) {
                 count = 1;
-            }
+        }
             Class<?> packetClass = getCraftClass("PacketPlayOutWorldParticles");
             Object packet = packetClass.getConstructor(String.class, float.class, float.class, float.class, float.class,
                     float.class, float.class, float.class, int.class).newInstance(effect.name, (float) location.getX(),
                     (float) location.getY(), (float) location.getZ(), offsetX, offsetY, offsetZ, speed, count);
             return packet;
-        }
+       }
 
         private static void sendPacket(Player p, Object packet) throws Exception {
             Object eplayer = getHandle(p);
@@ -180,7 +182,7 @@ public class Util {
                 Method entity_getHandle = entity.getClass().getMethod("getHandle");
                 Object nms_entity = entity_getHandle.invoke(entity);
                 return nms_entity;
-            } catch (Exception ex) {
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 ex.printStackTrace();
                 return null;
             }
@@ -229,6 +231,7 @@ public class Util {
             player.teleport(meta.getTeam().getRandomSpawn());
             
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
                 public void run() {
                     meta.getKit().give(player, meta.getTeam());
                     player.setCompassTarget(meta.getTeam().getNexus().getLocation());
