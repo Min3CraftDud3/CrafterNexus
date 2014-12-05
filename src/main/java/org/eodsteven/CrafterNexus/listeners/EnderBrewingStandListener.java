@@ -46,14 +46,14 @@ public class EnderBrewingStandListener implements Listener {
     private HashMap<String, VirtualBrewingStand> brewingStands;
 
     public EnderBrewingStandListener(CrafterNexus plugin) {
-        locations = new HashMap<GameTeam, Location>();
-        brewingStands = new HashMap<String, VirtualBrewingStand>();
+        locations = new HashMap<>();
+        brewingStands = new HashMap<>();
         
         Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
             public void run() {
                 for (VirtualBrewingStand b : brewingStands.values())
-                    b.h();
+                    b.g();
             }
         }, 0L, 1L);
     }

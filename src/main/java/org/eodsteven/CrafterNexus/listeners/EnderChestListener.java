@@ -38,8 +38,8 @@ import org.eodsteven.CrafterNexus.object.GameTeam;
 import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class EnderChestListener implements Listener {
-    private HashMap<GameTeam, Location> chests = new HashMap<GameTeam, Location>();
-    private HashMap<String, Inventory> inventories = new HashMap<String, Inventory>();
+    private HashMap<GameTeam, Location> chests = new HashMap<>();
+    private HashMap<String, Inventory> inventories = new HashMap<>();
 
     @EventHandler
     public void onChestOpen(PlayerInteractEvent e) {
@@ -85,7 +85,7 @@ public class EnderChestListener implements Listener {
 
     
     private void openEnemyEnderChest(Player player, GameTeam owner) {
-        LinkedList<Inventory> shuffledInventories = new LinkedList<Inventory>();
+        LinkedList<Inventory> shuffledInventories = new LinkedList<>();
         for (Entry<String, Inventory> entry : inventories.entrySet())
             if (PlayerMeta.getMeta(entry.getKey()).getTeam() == owner)
                 shuffledInventories.add(entry.getValue());

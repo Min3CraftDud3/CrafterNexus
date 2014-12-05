@@ -53,7 +53,7 @@ public class EnderFurnaceListener implements Listener {
             @Override
             public void run() {
                 for (VirtualFurnace f : furnaces.values())
-                    f.h();
+                    f.g();
             }
         }, 0L, 1L);
     }
@@ -115,7 +115,7 @@ public class EnderFurnaceListener implements Listener {
         }
 
         public net.minecraft.server.v1_8_R1.Block q() {
-            return net.minecraft.server.v1_8_R1.Blocks.BURNING_FURNACE;
+            return net.minecraft.server.v1_8_R1.Blocks.FURNACE;
         }
 
         @Override
