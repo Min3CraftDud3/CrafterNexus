@@ -19,16 +19,16 @@
 package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
-import net.minecraft.server.v1_7_R4.TileEntityBrewingStand;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntityPlayer;
+import net.minecraft.server.v1_8_R1.TileEntityBrewingStand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftInventoryBrewer;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftInventoryBrewer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -80,7 +80,7 @@ public class EnderBrewingStandListener implements Listener {
         e.setCancelled(true);
         if (locations.get(team).equals(loc)) {
             EntityPlayer handle = ((CraftPlayer) player).getHandle();
-            handle.openBrewingStand(getBrewingStand(player));
+            handle.openContainer(getBrewingStand(player));
             player.sendMessage(ChatColor.DARK_AQUA
                     + "This is your team's Ender Brewing Stand. Any items you brew here are safe from all other players.");
         }
@@ -110,14 +110,12 @@ public class EnderBrewingStandListener implements Listener {
             return true;
         }
 
-        @Override
         public int p() {
             return 0;
         }
 
-        @Override
-        public net.minecraft.server.v1_7_R4.Block q() {
-            return net.minecraft.server.v1_7_R4.Blocks.BREWING_STAND;
+        public net.minecraft.server.v1_8_R1.Block q() {
+            return net.minecraft.server.v1_8_R1.Blocks.BREWING_STAND;
         }
 
         @Override

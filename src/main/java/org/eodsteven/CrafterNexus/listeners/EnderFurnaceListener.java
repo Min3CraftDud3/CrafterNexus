@@ -19,16 +19,16 @@
 package org.eodsteven.CrafterNexus.listeners;
 
 import java.util.HashMap;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
-import net.minecraft.server.v1_7_R4.TileEntityFurnace;
+import net.minecraft.server.v1_8_R1.EntityHuman;
+import net.minecraft.server.v1_8_R1.EntityPlayer;
+import net.minecraft.server.v1_8_R1.TileEntityFurnace;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftInventoryFurnace;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftInventoryFurnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,8 +46,8 @@ public class EnderFurnaceListener implements Listener {
     private HashMap<String, VirtualFurnace> furnaces;
 
     public EnderFurnaceListener(CrafterNexus plugin) {
-        locations = new HashMap<GameTeam, Location>();
-        furnaces = new HashMap<String, VirtualFurnace>();
+        locations = new HashMap<>();
+        furnaces = new HashMap<>();
         
         Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
@@ -80,7 +80,7 @@ public class EnderFurnaceListener implements Listener {
         if (locations.get(team).equals(loc)) {
             e.setCancelled(true);
             EntityPlayer handle = ((CraftPlayer) player).getHandle();
-            handle.openFurnace(getFurnace(player));
+            handle.openContainer(getFurnace(player));
             player.sendMessage(ChatColor.DARK_AQUA
                     + "This is your team's Ender Furnace. Any items you store or smelt here are safe from all other players.");
         }
@@ -110,14 +110,12 @@ public class EnderFurnaceListener implements Listener {
             return true;
         }
 
-        @Override
         public int p() {
             return 0;
         }
 
-        @Override
-        public net.minecraft.server.v1_7_R4.Block q() {
-            return net.minecraft.server.v1_7_R4.Blocks.BURNING_FURNACE;
+        public net.minecraft.server.v1_8_R1.Block q() {
+            return net.minecraft.server.v1_8_R1.Blocks.BURNING_FURNACE;
         }
 
         @Override
