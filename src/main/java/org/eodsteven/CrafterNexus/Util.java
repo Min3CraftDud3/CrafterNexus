@@ -23,10 +23,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.server.v1_8_R1.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.Effect;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.GameMode;
@@ -54,22 +54,22 @@ public class Util {
 
     public enum ParticleEffects {
 
-        HUGE_EXPLODE("hugeexplosion", 0), LARGE_EXPLODE("largeexplode", 1), FIREWORK_SPARK("fireworksSpark", 2), AIR_BUBBLE(
-                "bubble", 3), SUSPEND("suspend", 4), DEPTH_SUSPEND("depthSuspend", 5), TOWN_AURA("townaura", 6), CRITICAL_HIT(
-                "crit", 7), MAGIC_CRITICAL_HIT("magicCrit", 8), MOB_SPELL("mobSpell", 9), MOB_SPELL_AMBIENT(
-                "mobSpellAmbient", 10), SPELL("spell", 11), INSTANT_SPELL("instantSpell", 12), BLUE_SPARKLE("witchMagic",
-                13), NOTE_BLOCK("note", 14), PORTAL("portal", 15), FLYING_GLYPH("enchantmenttable", 16), EXPLODE(
-                "explode", 17), FIRE("flame", 18), FLAME("lava", 19), FOOTSTEP("footstep", 20), SPLASH("splash", 21), LARGE_SMOKE(
-                "largesmoke", 22), CLOUD("cloud", 23), REDSTONE_DUST("reddust", 24), SNOWBALL_HIT("snowballpoof", 25), DRIP_WATER(
-                "dripWater", 26), LAVADRIP("dripLava", 27), SNOW_DIG("snowshovel", 28), SLIME("slime", 29), HEART("heart",
-                30), ANGRY_VILLAGER("angryVillager", 31), GREEN_SPARKLE("happyVillager", 32), ICONCRACK("iconcrack", 33), TILECRACK(
-                "tilecrack", 34);
+        BIG_EXPLODE("hugeexplosion", 0), LARGE_EXPLODE("largeexplode", 1), FIREWORKS("fireworksSpark", 2), BUBBLES(
+        "bubble", 3), SUSPEND("suspend", 4), VOID("depthSuspend", 5), TOWN_AURA("townaura", 6), CRITICALS(
+        "crit", 7), ENCHANT_CRITS("magicCrit", 8), SWIRL("mobSpell", 9), INVIS_SWIRL("mobSpellAmbient", 10),
+        WHITE_SPELL("spell", 11), SPLASH("instantSpell", 12), WITCH_MAGIC("witchMagic", 13), NOTES("note", 14), 
+        PORTAL("portal", 15), FLYING_GLYPH("enchantmenttable", 16), EXPLODE("explode", 17), 
+        FIRE("flame", 18), FLAME("lava", 19), FOOTSTEP("footstep", 20), WATER_SPLASH("splash", 21),
+        LARGE_SMOKE("largesmoke", 22), CLOUD("cloud", 23), REDSTONE_DUST("reddust", 24),
+        SNOWBALL("snowballpoof", 25), WATER("dripWater", 26), LAVADRIP("dripLava", 27),
+        SNOW_DIG("snowshovel", 28), SLIME("slime", 29), HEART("heart", 30), ANGRY_VILLAGER("angryVillager",
+        31), HAPPY("happyVillager", 32), ITEM_CRACK("iconcrack", 33), BLOCK_CRACK("tilecrack", 34);
 
-        private String name;
+        private String realName;
         private int id;
 
-        ParticleEffects(String name, int id) {
-            this.name = name;
+        ParticleEffects(String realName, int id) {
+            this.realName = realName;
             this.id = id;
         }
 
@@ -79,7 +79,7 @@ public class Util {
          * @return The particle effect name
          */
         String getName() {
-            return name;
+            return realName;
         }
 
         /**
@@ -159,9 +159,11 @@ public class Util {
                 count = 1;
         }
             Class<?> packetClass = getCraftClass("PacketPlayOutWorldParticles");
-            Object packet = packetClass.getConstructor(String.class, float.class, float.class, float.class, float.class,
-                    float.class, float.class, float.class, int.class).newInstance(effect.name, (float) location.getX(),
-                    (float) location.getY(), (float) location.getZ(), offsetX, offsetY, offsetZ, speed, count);
+            Object packet = packetClass.getConstructor(EnumParticle.class, boolean.class, float.class, float.class,
+                    float.class, float.class, float.class, float.class, float.class, int.class,
+                    int[].class).newInstance(EnumParticle.valueOf(effect.realName), true, 
+                    (float) location.getX(), (float) location.getY(), (float) location.getZ(),
+                    offsetX, offsetY, offsetZ, speed, count, null);
             return packet;
        }
 
