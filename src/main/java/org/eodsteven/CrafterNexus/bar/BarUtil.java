@@ -32,14 +32,12 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.eodsteven.CrafterNexus.CrafterNexus;
 
-;
-
 public class BarUtil implements Listener {
     private static BarUtil instance;
 
     private CrafterNexus plugin;
-    private static HashMap<UUID, FakeDragon> players = new HashMap<UUID, FakeDragon>();
-    private static HashMap<UUID, Integer> timers = new HashMap<UUID, Integer>();
+    private static HashMap<UUID, FakeDragon> players = new HashMap<>();
+    private static HashMap<UUID, Integer> timers = new HashMap<>();
 
     private BarUtil() {
 
@@ -124,6 +122,7 @@ public class BarUtil implements Listener {
         if (!hasBar(player))
             return;
         plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
             public void run() {
                 FakeDragon oldDragon = getDragon(player, "");
                 Object destroyPacket = getDragon(player, "").getDestroyPacket();
