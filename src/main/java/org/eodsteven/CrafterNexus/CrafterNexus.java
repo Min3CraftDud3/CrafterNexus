@@ -367,8 +367,8 @@ public final class CrafterNexus extends JavaPlugin {
                     if (t != GameTeam.NONE && t.getNexus().isAlive()) {
                         Location nexus = t.getNexus().getLocation().clone();
                         nexus.add(0.5, 0, 0.5);
-                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.ENDER, nexus, 1F, 1F, 1F, 0, 20);
-                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.ENCHANTMENT_TABLE, nexus, 1F, 1F, 1F, 0, 20);
+                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.PORTAL, nexus, 1F, 1F, 1F, 0, 20);
+                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.FLYING_GLYPH, nexus, 1F, 1F, 1F, 0, 20);
                     }
                 }
             }

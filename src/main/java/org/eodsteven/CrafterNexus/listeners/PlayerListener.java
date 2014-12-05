@@ -533,7 +533,7 @@ public class PlayerListener implements Listener {
             Location nexus = victim.getNexus().getLocation().clone();
             nexus.add(0.5, 0, 0.5);
             Util.ParticleEffects.sendToLocation(
-                    Util.ParticleEffects.LAVA_SPARK, nexus, 1F, 1F, 1F, 0, 20);
+                    Util.ParticleEffects.LAVADRIP, nexus, 1F, 1F, 1F, 0, 20);
             Util.ParticleEffects.sendToLocation(
                     Util.ParticleEffects.LARGE_SMOKE, nexus, 1F, 1F, 1F, 0, 20);
 
