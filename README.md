@@ -7,6 +7,6 @@ MineCraft 1.8.0 Version of Annihilation
 
  **Developers**: coasterman10, stuntguy3000
  
- **Recoded**: for 1.8.0 by EODCrafter Still a little buggy...Need some Help Specifically with the Boss Bar!
+ **Recoded**: for 1.8.0 by EODCrafter. This Game will only reset when Game is won.
 
 * **Current Version**: v1.8.0
