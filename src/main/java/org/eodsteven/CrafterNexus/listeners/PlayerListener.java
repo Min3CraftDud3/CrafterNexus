@@ -69,9 +69,9 @@ import org.eodsteven.CrafterNexus.object.PlayerMeta;
 import org.eodsteven.CrafterNexus.stats.StatType;
 
 public class PlayerListener implements Listener {
-    private CrafterNexus plugin;
+    private final CrafterNexus plugin;
 
-    private HashMap<String, Kit> kitsToGive = new HashMap<>();
+    private final HashMap<String, Kit> kitsToGive = new HashMap<>();
 
     public PlayerListener(CrafterNexus plugin) {
         this.plugin = plugin;
@@ -254,7 +254,7 @@ public class PlayerListener implements Listener {
                 + "Welcome to CrafterNexus!");
         player.sendMessage(ChatColor.BLACK
                 + "Open-source replica by stuntguy3000 and coasterman10");
-        player.sendMessage(ChatColor.GRAY + "Recoded for 1.8.0 by EODCrafter");
+        player.sendMessage(ChatColor.GRAY + "Recoded for 1.8.1 by EODCrafter");
 
         if (player.hasPermission("crafternexus.misc.updatenotify")
                 && plugin.updateAvailable) {
@@ -536,9 +536,9 @@ public class PlayerListener implements Listener {
 
             Location nexus = victim.getNexus().getLocation().clone();
             nexus.add(0.5, 0, 0.5);
-            Util.spawnFirework(nexus, Color.GRAY, Color.RED);
-            Util.ParticleEffect.DRIP_LAVA.getName();
-            Util.ParticleEffect.EXPLOSION_LARGE.getName();
+            Util.spawnFirework(nexus);
+            Util.ParticleEffect.DRIP_LAVA.name();
+            Util.ParticleEffect.EXPLOSION_LARGE.name();
 
             if (victim.getNexus().getHealth() == 0) {
                 plugin.getScoreboardHandler().sb.resetScores(plugin

@@ -36,8 +36,8 @@ public final class Golem {
     private Location chest;
     private boolean alive;
 
-    private HashMap<ItemStack, Float> legendaries = new HashMap<ItemStack, Float>();
-    private HashMap<ItemStack, Float> loot = new HashMap<ItemStack, Float>();
+    private HashMap<ItemStack, Float> legendaries = new HashMap<>();
+    private HashMap<ItemStack, Float> loot = new HashMap<>();
     private int lootItems;
     private int ingots;
 
@@ -144,7 +144,7 @@ public final class Golem {
     }
 
     private static ItemStack SpawnRandomItem(HashMap<ItemStack, Float> weighting) {
-        List<ItemStack> items = new ArrayList<ItemStack>(weighting.keySet());
+        List<ItemStack> items = new ArrayList<>(weighting.keySet());
 
         float totalWeight = 0F;
         for (Float f : weighting.values())

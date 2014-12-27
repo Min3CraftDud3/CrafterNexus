@@ -35,7 +35,7 @@ import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 public class GolemListener implements Listener {
 
-    private CrafterNexus plugin;
+    private final CrafterNexus plugin;
 
     public GolemListener(CrafterNexus instance) {
         this.plugin = instance;
@@ -63,7 +63,6 @@ public class GolemListener implements Listener {
                         plugin.getBossManager().spawn(n);
                     }
                 });
-                return;
             }
         }
     }

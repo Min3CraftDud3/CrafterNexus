@@ -2,7 +2,7 @@ name: CrafterNexus
 main: org.eodsteven.CrafterNexus.CrafterNexus
 authors: [coasterman10, stuntguy3000]
 softdepend: [Vault]
-version: 1.8.0
+version: 1.8.1
 commands:
   crafternexus:
     description: Plugin commands for CrafterNexus
