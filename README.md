@@ -11,10 +11,4 @@ Recoded: for 1.8.1 by EODCrafter. This Game will only reset when Game is won.
 
     Current Version: v1.8.1
 
-    Status
-    API
-    Training
-    Shop
-    Blog
-    About
 
