@@ -16,7 +16,7 @@ import org.bukkit.Bukkit;
 
 /**
  *
- * @author steve
+ * @author playfriik
  */
 public class ActionAPI {
  
