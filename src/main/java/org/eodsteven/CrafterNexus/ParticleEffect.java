@@ -26,34 +26,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import net.minecraft.server.v1_8_R1.EnumParticle;
+import java.util.Map.Entry;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.FireworkEffect.Type;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
-import static org.eodsteven.CrafterNexus.ParticleEffect.values;
-import org.eodsteven.CrafterNexus.object.GameTeam;
-import org.eodsteven.CrafterNexus.object.Kit;
-import org.eodsteven.CrafterNexus.object.PlayerMeta;
 
 import org.eodsteven.CrafterNexus.ReflectionUtils.PackageType;
 
-public class Util {
-    
+
 //public class ParticleEffect {
 
 /**
@@ -527,7 +509,7 @@ return ParticlePacket.getVersion() >= requiredVersion;
 * @return The particle effect
 */
 public static ParticleEffect fromName(String name) {
-for (Map.Entry<String, ParticleEffect> entry : NAME_MAP.entrySet()) {
+for (Entry<String, ParticleEffect> entry : NAME_MAP.entrySet()) {
 if (!entry.getKey().equalsIgnoreCase(name)) {
 continue;
 }
@@ -542,7 +524,7 @@ return null;
 * @return The particle effect
 */
 public static ParticleEffect fromId(int id) {
-for (Map.Entry<Integer, ParticleEffect> entry : ID_MAP.entrySet()) {
+for (Entry<Integer, ParticleEffect> entry : ID_MAP.entrySet()) {
 if (entry.getKey() != id) {
 continue;
 }
@@ -1097,15 +1079,15 @@ if (initialized) {
 return;
 }
 try {
-version = Integer.parseInt(Character.toString(ReflectionUtils.PackageType.getServerVersion().charAt(3)));
+version = Integer.parseInt(Character.toString(PackageType.getServerVersion().charAt(3)));
 if (version > 7) {
-enumParticle = ReflectionUtils.PackageType.MINECRAFT_SERVER.getClass("EnumParticle");
+enumParticle = PackageType.MINECRAFT_SERVER.getClass("EnumParticle");
 }
-Class<?> packetClass = ReflectionUtils.PackageType.MINECRAFT_SERVER.getClass(version < 7 ? "Packet63WorldParticles" : "PacketPlayOutWorldParticles");
+Class<?> packetClass = PackageType.MINECRAFT_SERVER.getClass(version < 7 ? "Packet63WorldParticles" : "PacketPlayOutWorldParticles");
 packetConstructor = ReflectionUtils.getConstructor(packetClass);
-getHandle = ReflectionUtils.getMethod("CraftPlayer", ReflectionUtils.PackageType.CRAFTBUKKIT_ENTITY, "getHandle");
-playerConnection = ReflectionUtils.getField("EntityPlayer", ReflectionUtils.PackageType.MINECRAFT_SERVER, false, "playerConnection");
-sendPacket = ReflectionUtils.getMethod(playerConnection.getType(), "sendPacket", ReflectionUtils.PackageType.MINECRAFT_SERVER.getClass("Packet"));
+getHandle = ReflectionUtils.getMethod("CraftPlayer", PackageType.CRAFTBUKKIT_ENTITY, "getHandle");
+playerConnection = ReflectionUtils.getField("EntityPlayer", PackageType.MINECRAFT_SERVER, false, "playerConnection");
+sendPacket = ReflectionUtils.getMethod(playerConnection.getType(), "sendPacket", PackageType.MINECRAFT_SERVER.getClass("Packet"));
 } catch (NumberFormatException | ClassNotFoundException | NoSuchMethodException | NoSuchFieldException | SecurityException exception) {
 throw new VersionIncompatibleException("Your current bukkit version seems to be incompatible with this library", exception);
 }
@@ -1269,316 +1251,4 @@ super(message, cause);
            }
        }
    }
-    }
-
-private String realName;
-private int id;
-
-Util(String realName, int id) {
-this.realName = realName;
-this.id = id;
-}
-
-/**
-* Gets the name of the Particle Effect
-*
-* @return The particle effect name
-*/
-String getName() {
-return realName;
-}
-
-/**
-* Gets the id of the Particle Effect
-*
-* @return The id of the Particle Effect
-*/
-int getId() {
-return id;
-}
-
-/**
-* Send a particle effect to a player
-*
-* @param effect
-* The particle effect to send
-* @param player
-* The player to send the effect to
-* @param location
-* The location to send the effect to
-* @param offsetX
-* The x range of the particle effect
-* @param offsetY
-* The y range of the particle effect
-* @param offsetZ
-* The z range of the particle effect
-* @param speed
-* The speed (or color depending on the effect) of the particle
-* effect
-* @param count
-* The count of effects
-*/
-public static void sendToPlayer(Util effect, Player player, Location location, float offsetX, float offsetY,
-float offsetZ, float speed, int count) {
-try {
-Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
-sendPacket(player, packet);
-} catch (Exception e) {
-e.printStackTrace();
-}
-
-}
-
-/**
-* Send a particle effect to all players
-*
-* @param effect
-* The particle effect to send
-* @param location
-* The location to send the effect to
-* @param offsetX
-* The x range of the particle effect
-* @param offsetY
-* The y range of the particle effect
-* @param offsetZ
-* The z range of the particle effect
-* @param speed
-* The speed (or color depending on the effect) of the particle
-* effect
-* @param count
-* The count of effects
-*/
-public static void sendToLocation(Util effect, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) {
-try {
-Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
-for (Player player : Bukkit.getOnlinePlayers()) {
-sendPacket(player, packet);
-}
-} catch (Exception e) {
-e.printStackTrace();
-}
-}
-
-private static Object createPacket(Util effect, Location location, float offsetX, float offsetY,
-float offsetZ, float speed, int count) throws Exception {
-if (count <= 0) {
-count = 1;
-}
-Class<?> packetClass = getCraftClass("PacketPlayOutWorldParticles");
-Object packet = packetClass.getConstructor(EnumParticle.class, boolean.class, float.class, float.class,
-float.class, float.class, float.class, float.class, float.class, int.class,
-int[].class).newInstance(EnumParticle.valueOf(effect.realName), true,
-(float) location.getX(), (float) location.getY(), (float) location.getZ(),
-offsetX, offsetY, offsetZ, speed, count, null);
-return packet;
-}
-
-private static void sendPacket(Player p, Object packet) throws Exception {
-Object eplayer = getHandle(p);
-Field playerConnectionField = eplayer.getClass().getField("playerConnection");
-Object playerConnection = playerConnectionField.get(eplayer);
-for (Method m : playerConnection.getClass().getMethods()) {
-if (m.getName().equalsIgnoreCase("sendPacket")) {
-m.invoke(playerConnection, packet);
-return;
-}
-}
-}
-
-private static Object getHandle(Entity entity) {
-try {
-Method entity_getHandle = entity.getClass().getMethod("getHandle");
-Object nms_entity = entity_getHandle.invoke(entity);
-return nms_entity;
-} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-ex.printStackTrace();
-return null;
-}
-}
-
-private static Class<?> getCraftClass(String name) {
-String version = getVersion() + ".";
-String className = "net.minecraft.server." + version + name;
-Class<?> clazz = null;
-try {
-clazz = Class.forName(className);
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-return clazz;
-}
-
-private static String getVersion() {
-return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-}
-
-public static Location parseLocation(World w, String in) {
-String[] params = in.split(",");
-for (String s : params)
-s.replace("-0", "0");
-if (params.length == 3 || params.length == 5) {
-double x = Double.parseDouble(params[0]);
-double y = Double.parseDouble(params[1]);
-double z = Double.parseDouble(params[2]);
-Location loc = new Location(w, x, y, z);
-if (params.length == 5) {
-loc.setYaw(Float.parseFloat(params[4]));
-loc.setPitch(Float.parseFloat(params[5]));
-}
-return loc;
-}
-return null;
-}
-
-public static void sendPlayerToGame(final Player player, CrafterNexus plugin) {
-final PlayerMeta meta = PlayerMeta.getMeta(player);
-if (meta.getTeam() != null) {
-meta.setAlive(true);
-player.teleport(meta.getTeam().getRandomSpawn());
-
-Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-@Override
-public void run() {
-meta.getKit().give(player, meta.getTeam());
-player.setCompassTarget(meta.getTeam().getNexus().getLocation());
-player.setGameMode(GameMode.SURVIVAL);
-player.setHealth(player.getMaxHealth());
-player.setFoodLevel(20);
-player.setSaturation(20F);
-}
-}, 10L);
-}
-}
-
-public static boolean isEmptyColumn(Location loc) {
-boolean hasBlock = false;
-Location test = loc.clone();
-for (int y = 0; y < loc.getWorld().getMaxHeight(); y++) {
-test.setY(y);
-if (test.getBlock().getType() != Material.AIR)
-hasBlock = true;
-}
-return !hasBlock;
-}
-
-public static void showClassSelector(Player p, String title) {
-int size = ((Kit.values().length + 8) / 9) * 9;
-Inventory inv = Bukkit.createInventory(p, size, title);
-for (Kit kit : Kit.values()) {
-ItemStack i = kit.getIcon().clone();
-ItemMeta im = i.getItemMeta();
-List<String> lore = im.getLore();
-lore.add(ChatColor.GRAY + "---------------");
-if (kit.isOwnedBy(p)) {
-lore.add(ChatColor.GREEN + "Unlocked");
-} else {
-lore.add(ChatColor.RED + "Locked");
-}
-im.setLore(lore);
-i.setItemMeta(im);
-inv.addItem(i);
-}
-p.openInventory(inv);
-}
-
-public static void spawnFirework(Location loc) {
-Random colour = new Random();
-
-Firework fw = loc.getWorld().spawn(loc, Firework.class);
-FireworkMeta fwMeta = fw.getFireworkMeta();
-Type fwType = Type.BALL_LARGE;
-
-int c1i = colour.nextInt(17) + 1;
-int c2i = colour.nextInt(17) + 1;
-
-Color c1 = getFWColor(c1i);
-Color c2 = getFWColor(c2i);
-
-FireworkEffect effect = FireworkEffect.builder().withFade(c2).withColor(c1).with(fwType).build();
-
-fwMeta.addEffect(effect);
-fwMeta.setPower(1);
-fw.setFireworkMeta(fwMeta);
-}
-
-public static void spawnFirework(Location loc, Color c1, Color c2) {
-Firework fw = loc.getWorld().spawn(loc, Firework.class);
-FireworkMeta fwMeta = fw.getFireworkMeta();
-
-Type fwType = Type.BALL_LARGE;
-
-FireworkEffect effect = FireworkEffect.builder().withFade(c2).withColor(c1).with(fwType).build();
-
-fwMeta.addEffect(effect);
-fwMeta.setPower(1);
-fw.setFireworkMeta(fwMeta);
-}
-
-public static Color getFWColor(int c) {
-switch (c) {
-case 1:
-return Color.TEAL;
-default:
-case 2:
-return Color.WHITE;
-case 3:
-return Color.YELLOW;
-case 4:
-return Color.AQUA;
-case 5:
-return Color.BLACK;
-case 6:
-return Color.BLUE;
-case 7:
-return Color.FUCHSIA;
-case 8:
-return Color.GRAY;
-case 9:
-return Color.GREEN;
-case 10:
-return Color.LIME;
-case 11:
-return Color.MAROON;
-case 12:
-return Color.NAVY;
-case 13:
-return Color.OLIVE;
-case 14:
-return Color.ORANGE;
-case 15:
-return Color.PURPLE;
-case 16:
-return Color.RED;
-case 17:
-return Color.SILVER;
-}
-}
-
-public static String getPhaseColor(int phase) {
-switch (phase) {
-case 1:
-return ChatColor.BLUE.toString();
-case 2:
-return ChatColor.GREEN.toString();
-case 3:
-return ChatColor.YELLOW.toString();
-case 4:
-return ChatColor.GOLD.toString();
-case 5:
-return ChatColor.RED.toString();
-default:
-return ChatColor.WHITE.toString();
-}
-}
-
-public static boolean isTeamTooBig(GameTeam team) {
-int players = team.getPlayers().size();
-for (GameTeam gt : GameTeam.teams())
-if (players >= gt.getPlayers().size() + 3 && gt.getNexus().isAlive())
-return true;
-return false;
-}
-
-private Util() {
-}
 }

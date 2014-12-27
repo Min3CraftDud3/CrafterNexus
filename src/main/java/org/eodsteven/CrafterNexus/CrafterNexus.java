@@ -49,7 +49,7 @@ import org.bukkit.scoreboard.Team;
 import static org.eodsteven.CrafterNexus.Translation._;
 import org.eodsteven.CrafterNexus.api.GameStartEvent;
 import org.eodsteven.CrafterNexus.api.PhaseChangeEvent;
-import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.bar.ActionAPI;
 import org.eodsteven.CrafterNexus.chat.ChatListener;
 import org.eodsteven.CrafterNexus.chat.ChatUtil;
 import org.eodsteven.CrafterNexus.commands.ClassCommand;
@@ -195,8 +195,6 @@ public final class CrafterNexus extends JavaPlugin {
         getCommand("blue").setExecutor(new TeamShortcutCommand());
         getCommand("distance").setExecutor(new DistanceCommand(this));
         getCommand("map").setExecutor(new MapCommand(this, mapLoader));
-
-        BarUtil.init(this);
 
         if (config.getString("stats").equalsIgnoreCase("sql"))
             useMysql = true;
@@ -367,8 +365,8 @@ public final class CrafterNexus extends JavaPlugin {
                     if (t != GameTeam.NONE && t.getNexus().isAlive()) {
                         Location nexus = t.getNexus().getLocation().clone();
                         nexus.add(0.5, 0, 0.5);
-                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.PORTAL, nexus, 1F, 1F, 1F, 0, 20);
-                        Util.ParticleEffects.sendToLocation(Util.ParticleEffects.FLYING_GLYPH, nexus, 1F, 1F, 1F, 0, 20);
+                        Util.ParticleEffect.PORTAL.getName();
+                        Util.ParticleEffect.ENCHANTMENT_TABLE.getName();
                     }
                 }
             }
@@ -490,8 +488,8 @@ public final class CrafterNexus extends JavaPlugin {
         for (Player p : getServer().getOnlinePlayers()) {
             PlayerMeta.getMeta(p).setTeam(GameTeam.NONE);
             p.teleport(maps.getLobbySpawnPoint());
-            BarUtil.setMessageAndPercent(p, ChatColor.DARK_AQUA
-                    + "Welcome to Crafter's Nexus!", 0.01F);
+            ActionAPI.sendPlayerAnnouncement(p, ChatColor.DARK_AQUA
+                    + "Welcome to Crafter's Nexus!");
             p.setMaxHealth(20D);
             p.setHealth(20D);
             p.setFoodLevel(20);

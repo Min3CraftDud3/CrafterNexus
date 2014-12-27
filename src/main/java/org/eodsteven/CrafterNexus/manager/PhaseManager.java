@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.eodsteven.CrafterNexus.CrafterNexus;
 import org.eodsteven.CrafterNexus.Util;
-import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.bar.ActionAPI;
 import org.eodsteven.CrafterNexus.chat.ChatUtil;
 import org.eodsteven.CrafterNexus.object.GameTeam;
 
@@ -62,8 +62,8 @@ public class PhaseManager {
         time = -startTime;
 
         for (Player p : Bukkit.getOnlinePlayers())
-            BarUtil.setMessageAndPercent(p, ChatColor.GREEN + "Starting in "
-                    + -time, 1F);
+            ActionAPI.sendPlayerAnnouncement(p, ChatColor.DARK_AQUA
+                    + "Welcome to CrafterNexus!");
 
         plugin.getSignHandler().updateSigns(GameTeam.RED);
         plugin.getSignHandler().updateSigns(GameTeam.BLUE);
@@ -136,7 +136,7 @@ public class PhaseManager {
         }
 
         for (Player p : Bukkit.getOnlinePlayers())
-            BarUtil.setMessageAndPercent(p, text, percent);
+                        ActionAPI.sendPlayerAnnouncement(p, text);
 
         plugin.onSecond();
     }

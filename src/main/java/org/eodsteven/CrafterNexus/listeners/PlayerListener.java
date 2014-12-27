@@ -25,6 +25,7 @@ import net.minecraft.server.v1_8_R1.EnumClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -60,7 +61,7 @@ import org.eodsteven.CrafterNexus.CrafterNexus;
 import org.eodsteven.CrafterNexus.Util;
 import org.eodsteven.CrafterNexus.api.NexusDamageEvent;
 import org.eodsteven.CrafterNexus.api.NexusDestroyEvent;
-import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.bar.ActionAPI;
 import org.eodsteven.CrafterNexus.chat.ChatUtil;
 import org.eodsteven.CrafterNexus.object.GameTeam;
 import org.eodsteven.CrafterNexus.object.Kit;
@@ -305,8 +306,8 @@ public class PlayerListener implements Listener {
                             + "', '0', '0', '0', '0', '0');");
 
         if (plugin.getPhase() == 0 && plugin.getVotingManager().isRunning()) {
-            BarUtil.setMessageAndPercent(player, ChatColor.DARK_AQUA
-                    + "Welcome to CrafterNexus!", 0.01f);
+            ActionAPI.sendPlayerAnnouncement(player, ChatColor.DARK_AQUA
+                    + "Welcome to CrafterNexus!");
             plugin.checkStarting();
         }
 
@@ -535,10 +536,9 @@ public class PlayerListener implements Listener {
 
             Location nexus = victim.getNexus().getLocation().clone();
             nexus.add(0.5, 0, 0.5);
-            Util.ParticleEffects.sendToLocation(
-                    Util.ParticleEffects.LAVADRIP, nexus, 1F, 1F, 1F, 0, 20);
-            Util.ParticleEffects.sendToLocation(
-                    Util.ParticleEffects.LARGE_SMOKE, nexus, 1F, 1F, 1F, 0, 20);
+            Util.spawnFirework(nexus, Color.GRAY, Color.RED);
+            Util.ParticleEffect.DRIP_LAVA.getName();
+            Util.ParticleEffect.EXPLOSION_LARGE.getName();
 
             if (victim.getNexus().getHealth() == 0) {
                 plugin.getScoreboardHandler().sb.resetScores(plugin
@@ -570,9 +570,7 @@ public class PlayerListener implements Listener {
                     }, new Random().nextInt(20));
                 }
 
-                Util.ParticleEffects.sendToLocation(
-                        Util.ParticleEffects.LARGE_EXPLODE, nexus, 1F, 1F, 1F,
-                        0, 20);
+                Util.ParticleEffect.EXPLOSION_LARGE.getName();
 
                 Bukkit.getScheduler().runTask(plugin, new Runnable() {
                     @Override

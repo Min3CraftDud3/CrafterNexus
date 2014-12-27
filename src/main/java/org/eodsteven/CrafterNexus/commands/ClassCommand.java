@@ -28,6 +28,7 @@ import org.eodsteven.CrafterNexus.Util;
 
 public class ClassCommand implements CommandExecutor {
 
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args) {
         if (!(sender instanceof Player)) {

@@ -28,7 +28,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.eodsteven.CrafterNexus.CrafterNexus;
 import org.eodsteven.CrafterNexus.Util;
-import org.eodsteven.CrafterNexus.bar.BarUtil;
+import org.eodsteven.CrafterNexus.bar.ActionAPI;
 import org.eodsteven.CrafterNexus.object.GameTeam;
 
 public class RestartHandler {
@@ -55,6 +55,7 @@ public class RestartHandler {
         final String totalTime = PhaseManager.timeString(gameTime);
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin,
                 new Runnable() {
+                    @Override
                     public void run() {
                         if (time <= 0) {
                             stop();
@@ -66,12 +67,13 @@ public class RestartHandler {
                                 + time;
                         float percent = (float) time / (float) delay;
                         for (Player p : Bukkit.getOnlinePlayers())
-                            BarUtil.setMessageAndPercent(p, message, percent);
+                            ActionAPI.sendPlayerAnnouncement(p, message);
                         time--;
                     }
                 }, 0L, 20L);
 
         fwID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            @Override
             public void run() {
                     for (GameTeam gt : GameTeam.values()) {
                         if (gt != GameTeam.NONE) {
