@@ -533,7 +533,7 @@ public class PlayerListener implements Listener {
                     .getWorld()
                     .playSound(victim.getNexus().getLocation(),
                             Sound.ANVIL_LAND, 1F, pitch);
-                            Util.spawnFirework(nexus)
+                            Util.spawnFirework(nexus);
             }
       
             Random s = new Random(); {
