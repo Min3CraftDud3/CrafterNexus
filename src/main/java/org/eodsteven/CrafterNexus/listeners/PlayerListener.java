@@ -25,7 +25,6 @@ import net.minecraft.server.v1_8_R1.EnumClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -252,8 +251,8 @@ public class PlayerListener implements Listener {
 
         player.sendMessage(prefix + ChatColor.GREEN
                 + "Welcome to CrafterNexus!");
-        player.sendMessage(ChatColor.BLACK
-                + "Open-source replica by stuntguy3000 and coasterman10");
+        player.sendMessage(ChatColor.GRAY
+                + "Feel free to contribute at MCTyler's GitHub");
         player.sendMessage(ChatColor.GRAY + "Recoded for 1.8.1 by EODCrafter");
 
         if (player.hasPermission("crafternexus.misc.updatenotify")
@@ -533,12 +532,13 @@ public class PlayerListener implements Listener {
                     .getWorld()
                     .playSound(victim.getNexus().getLocation(),
                             Sound.ANVIL_LAND, 1F, pitch);
-
+            }
+      
+            Random s = new Random(); {
+            float pitch = 15F + s.nextFloat() * 5F;
             Location nexus = victim.getNexus().getLocation().clone();
-            nexus.add(0.5, 0, 0.5);
-            Util.spawnFirework(nexus);
-            Util.ParticleEffect.DRIP_LAVA.name();
-            Util.ParticleEffect.EXPLOSION_LARGE.name();
+            Util.ParticleEffect.EXPLOSION_HUGE.display(pitch, pitch, pitch, pitch, 100, nexus, pitch);
+            Util.ParticleEffect.EXPLOSION_LARGE.display(pitch, pitch, pitch, pitch, 100, nexus, pitch);
 
             if (victim.getNexus().getHealth() == 0) {
                 plugin.getScoreboardHandler().sb.resetScores(plugin
@@ -556,7 +556,7 @@ public class PlayerListener implements Listener {
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.getWorld().playSound(player.getLocation(),
-                            Sound.EXPLODE, 1F, 1.25F);
+                            Sound.EXPLODE, 2F, 1.25F);
                 }
 
                 for (final Location spawn : victim.getSpawns()) {
@@ -569,8 +569,6 @@ public class PlayerListener implements Listener {
                         }
                     }, new Random().nextInt(20));
                 }
-
-                Util.ParticleEffect.EXPLOSION_LARGE.getName();
 
                 Bukkit.getScheduler().runTask(plugin, new Runnable() {
                     @Override
