@@ -527,11 +527,13 @@ public class PlayerListener implements Listener {
 
             Random r = new Random();
             float pitch = 0.5F + r.nextFloat() * 0.5F;
+            Location nexus = victim.getNexus().getLocation().clone();
             victim.getNexus()
                     .getLocation()
                     .getWorld()
                     .playSound(victim.getNexus().getLocation(),
                             Sound.ANVIL_LAND, 1F, pitch);
+                            Util.spawnFirework(nexus)
             }
       
             Random s = new Random(); {
