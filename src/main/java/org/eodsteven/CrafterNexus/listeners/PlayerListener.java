@@ -536,7 +536,8 @@ public class PlayerListener implements Listener {
                             Util.spawnFirework(nexus);
             }
       
-            Random s = new Random(); {
+            if (plugin.getPhase() > 1) {
+            Random s = new Random();
             float pitch = 15F + s.nextFloat() * 5F;
             Location nexus = victim.getNexus().getLocation().clone();
             Util.ParticleEffect.EXPLOSION_HUGE.display(pitch, pitch, pitch, pitch, 100, nexus, pitch);
